@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>나라와 직업</title>
+<style>
+:root{--bg:#FFF6EE;--card:#FFFFFF;--ink:#3B4A48;--sub:#6D7F7C;--mint:#CBEBDD;--pink:#FAD6DF;--accent:#3E9C86;--ok:#2E8A6F;--bad:#BE5068;--line:#EADFD2;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1D2624;--card:#27332F;--ink:#EDF5F2;--sub:#AFC2BD;--mint:#2F4B43;--pink:#4C333A;--accent:#7FD1BC;--ok:#7FD1BC;--bad:#F2A0B2;--line:#3B4B46}}
+:root[data-theme="dark"]{--bg:#1D2624;--card:#27332F;--ink:#EDF5F2;--sub:#AFC2BD;--mint:#2F4B43;--pink:#4C333A;--accent:#7FD1BC;--ok:#7FD1BC;--bad:#F2A0B2;--line:#3B4B46}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito","Quicksand",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+main{max-width:520px;margin:0 auto;padding:24px 16px 56px;text-align:center}
+.mascot{width:88px;height:88px;margin:4px auto 0;display:block}
+h1{font-size:26px;margin:8px 0 2px}
+.sub{color:var(--sub);margin:0 0 18px}
+.card{background:var(--card);border:2px solid var(--line);border-radius:26px;padding:22px 18px;text-align:left;box-shadow:0 6px 0 var(--line)}
+.q{font-size:20px;font-weight:800;margin:0 0 14px;white-space:pre-line}
+.btn{width:100%;min-height:52px;margin-top:14px;border:0;border-radius:18px;background:var(--accent);color:#fff;font-size:18px;font-weight:800;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.15)}
+:root[data-theme="dark"] .btn{color:#10201B}
+.opt{display:block;width:100%;min-height:54px;text-align:left;font-size:18px;padding:10px 16px;margin-bottom:10px;border-radius:18px;border:2px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.opt.right{border-color:var(--ok);background:var(--mint);font-weight:800}
+.opt.wrong{border-color:var(--bad);background:var(--pink)}
+.prog{height:12px;border-radius:12px;background:var(--line);overflow:hidden;margin-bottom:8px}
+.prog i{display:block;height:100%;background:var(--accent);border-radius:12px;transition:width .3s}
+.note{font-size:14px;color:var(--sub);margin:0 0 12px}
+.fb{font-weight:800;margin:4px 0 0;min-height:26px}
+.fb.y{color:var(--ok)}.fb.n{color:var(--bad)}
+.score{font-size:56px;font-weight:900;text-align:center;margin:0}
+.msg{text-align:center;font-size:18px;margin:0 0 16px}
+.rev{border-radius:18px;padding:12px 14px;margin-bottom:10px;background:var(--bg);border:2px solid var(--line);font-size:16px}
+.rev p{margin:6px 0 0;color:var(--ok);font-weight:700}
+input{width:100%;min-height:52px;font-size:20px;padding:8px 16px;border-radius:16px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+.lab{display:block;font-size:18px;font-weight:800;margin:14px 0 8px}
+.err{color:var(--bad);font-weight:700;min-height:22px;margin:8px 0 0}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+<svg class="mascot" viewBox="0 0 96 96" aria-hidden="true"><path d="M48 14c-2-8 4-12 10-12-1 6-4 10-10 12z" fill="#7CCBB0"/><path d="M48 14c2-6-2-10-8-10 0 5 3 9 8 10z" fill="#A5DEC8"/><ellipse cx="48" cy="56" rx="36" ry="33" fill="#FFDCE4"/><circle cx="36" cy="54" r="4" fill="#3B4A48"/><circle cx="60" cy="54" r="4" fill="#3B4A48"/><ellipse cx="27" cy="64" rx="6" ry="4" fill="#F7A9BB"/><ellipse cx="69" cy="64" rx="6" ry="4" fill="#F7A9BB"/><path d="M42 64q6 7 12 0" stroke="#3B4A48" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+<h1>나라와 직업</h1>
+<p class="sub">Quốc gia và nghề nghiệp</p>
+
+<section class="card" id="startBox">
+<p class="q">Sẵn sàng chưa? Bài có <span id="total"></span> câu, làm lần lượt từng câu. Chọn đáp án là biết đúng hay sai ngay.</p>
+<label class="lab" for="nameIn">Họ và tên của bạn</label>
+<input id="nameIn" autocomplete="name" maxlength="60" placeholder="Ví dụ: Nguyễn Lan">
+<p class="err" id="err" role="alert"></p>
+<button class="btn" id="startBtn">Bắt đầu nào</button>
+</section>
+
+<section class="card" id="quizBox" hidden>
+<div class="prog"><i id="bar"></i></div>
+<p class="note" id="count"></p>
+<p class="q" id="qText"></p>
+<div id="opts"></div>
+<p class="fb" id="fb" role="status"></p>
+<button class="btn" id="nextBtn" hidden>Câu tiếp</button>
+</section>
+
+<section class="card" id="doneBox" hidden>
+<p class="score" id="score"></p>
+<p class="msg" id="msg"></p>
+<p class="note" id="sendMsg" style="text-align:center" role="status"></p>
+<button class="btn" id="retryBtn" hidden>Gửi lại điểm</button>
+<div id="review"></div>
+<button class="btn" id="againBtn">Làm lại</button>
+</section>
+</main>
+
+<script>
+var L=["ㄱ","ㄴ","ㄷ","ㄹ"];
+/* a = vị trí đáp án đúng: 0=ㄱ, 1=ㄴ, 2=ㄷ, 3=ㄹ */
+var Q=[
+{q:`'한국' nghĩa là gì?`,o:[`Nhật Bản`,`Hàn Quốc`,`Trung Quốc`,`Việt Nam`],a:1},
+{q:`'저는 베트남 사람입니다.' Người nói là người nước nào?`,o:[`Thái Lan`,`Mỹ`,`Việt Nam`,`Nhật Bản`],a:2},
+{q:`'Mỹ' trong tiếng Hàn là gì?`,o:[`영국`,`미국`,`중국`,`독일`],a:1},
+{q:`Điền vào chỗ trống: 저는 일본 ___입니다. (Tôi là người Nhật.)`,o:[`나라`,`학교`,`사람`,`직업`],a:2},
+{q:`'중국 사람' nghĩa là gì?`,o:[`Người Trung Quốc`,`Người Hàn Quốc`,`Người Nhật`,`Người Mỹ`],a:0},
+{q:`'선생님' nghĩa là gì?`,o:[`Bác sĩ`,`Học sinh`,`Giáo viên`,`Đầu bếp`],a:2},
+{q:`'저는 학생입니다.' Người nói làm nghề gì?`,o:[`Học sinh / sinh viên`,`Giáo viên`,`Bác sĩ`,`Công an`],a:0},
+{q:`'Bác sĩ' trong tiếng Hàn là gì?`,o:[`간호사`,`회사원`,`요리사`,`의사`],a:3},
+{q:`'직업이 무엇입니까?' nghĩa là gì?`,o:[`Bạn là người nước nào?`,`Nghề nghiệp của bạn là gì?`,`Bạn tên là gì?`,`Bạn bao nhiêu tuổi?`],a:1},
+{q:`'어느 나라 사람입니까?' nghĩa là gì?`,o:[`Bạn làm nghề gì?`,`Bạn sống ở đâu?`,`Bạn học ở đâu?`,`Bạn là người nước nào?`],a:3},
+{q:`A: 어느 나라 사람입니까?\nB: 저는 태국 사람입니다.\nB là người nước nào?`,o:[`Thái Lan`,`Trung Quốc`,`Hàn Quốc`,`Mỹ`],a:0},
+{q:`'마이 씨는 회사원입니다.' Mai làm nghề gì?`,o:[`Giáo viên`,`Nhân viên công ty`,`Bác sĩ`,`Ca sĩ`],a:1},
+{q:`Chọn từ đúng cho 'người Pháp':`,o:[`영국 사람`,`독일 사람`,`프랑스 사람`,`일본 사람`],a:2},
+{q:`'요리사' nghĩa là gì?`,o:[`Ca sĩ`,`Công an`,`Y tá`,`Đầu bếp`],a:3},
+{q:`'저는 독일 사람입니다. 의사입니다.' Người nói là ai?`,o:[`Bác sĩ người Mỹ`,`Bác sĩ người Đức`,`Giáo viên người Đức`,`Đầu bếp người Pháp`],a:1}
+];
+var $=function(i){return document.getElementById(i)};
+var API="https://script.google.com/macros/s/AKfycbzDwxyftGmLYek9G-Pstzdkehe6w0VWkpqqzxR9BI1SothloV9LQmb18TW_9ElDx50/exec";
+var idx=0,score=0,locked=false,wrong=[],student="";
+$("total").textContent=Q.length;
+
+function start(){idx=0;score=0;wrong=[];$("sendMsg").textContent="";$("retryBtn").hidden=true;$("startBox").hidden=true;$("doneBox").hidden=true;$("quizBox").hidden=false;show()}
+function show(){
+  locked=false;var q=Q[idx];
+  $("count").textContent="Câu "+(idx+1)+"/"+Q.length;
+  $("bar").style.width=(idx/Q.length*100)+"%";
+  $("qText").textContent=q.q;
+  $("fb").textContent="";$("fb").className="fb";$("nextBtn").hidden=true;
+  var box=$("opts");box.textContent="";
+  q.o.forEach(function(t,i){
+    var b=document.createElement("button");b.className="opt";b.textContent=L[i]+". "+t;
+    b.onclick=function(){pick(i)};box.appendChild(b);
+  });
+}
+function pick(i){
+  if(locked)return;locked=true;var q=Q[idx],kids=$("opts").children;
+  kids[q.a].classList.add("right");
+  if(i===q.a){score++;$("fb").textContent="Đúng rồi!";$("fb").className="fb y"}
+  else{kids[i].classList.add("wrong");wrong.push(idx);$("fb").textContent="Chưa đúng. Đáp án đúng là "+L[q.a]+".";$("fb").className="fb n"}
+  $("nextBtn").textContent=idx===Q.length-1?"Xem điểm":"Câu tiếp";$("nextBtn").hidden=false;
+}
+function finish(){
+  $("quizBox").hidden=true;$("doneBox").hidden=false;
+  $("score").textContent=score+"/"+Q.length;send();
+  $("msg").textContent=score===Q.length?"Tuyệt vời, đúng hết rồi!":score>=Q.length*0.7?"Giỏi lắm!":"Cố gắng thêm nhé, làm lại để nhớ lâu hơn!";
+  var rv=$("review");rv.textContent="";
+  if(wrong.length){
+    var h=document.createElement("p");h.className="note";h.textContent="Những câu cần xem lại:";rv.appendChild(h);
+    wrong.forEach(function(n){
+      var d=document.createElement("div");d.className="rev";
+      var t=document.createElement("span");t.textContent="Câu "+(n+1)+": "+Q[n].q;t.style.whiteSpace="pre-line";
+      var p=document.createElement("p");p.textContent="Đáp án: "+L[Q[n].a]+". "+Q[n].o[Q[n].a];
+      d.appendChild(t);d.appendChild(p);rv.appendChild(d);
+    });
+  }
+}
+$("startBtn").onclick=function(){
+  student=$("nameIn").value.trim();
+  if(!student){$("err").textContent="Bạn nhớ nhập họ và tên nhé.";$("nameIn").focus();return}
+  $("err").textContent="";start();
+};
+function send(){
+  var m=$("sendMsg");$("retryBtn").hidden=true;m.textContent="Đang gửi điểm...";
+  function fail(){m.textContent="Chưa gửi được điểm. Bạn bấm Gửi lại, hoặc chụp màn hình điểm gửi giáo viên nhé.";$("retryBtn").hidden=false}
+  fetch(API,{method:"POST",body:JSON.stringify({action:"eomi",bai:"quocgia-nghenghiep",name:student,score:score,total:Q.length,wrong:wrong.map(function(n){return n+1})})})
+   .then(function(r){return r.json()})
+   .then(function(d){if(d&&d.ok){m.textContent="Đã gửi điểm cho giáo viên. Cảm ơn "+student+"!"}else{fail()}})
+   .catch(fail);
+}
+$("retryBtn").onclick=send;
+$("againBtn").onclick=start;
+$("nextBtn").onclick=function(){idx++;if(idx<Q.length)show();else finish()};
+</script>
+</body>
+</html>
