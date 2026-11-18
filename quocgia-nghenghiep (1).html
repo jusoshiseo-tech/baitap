@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>나라와 직업</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#DDF1FF;--card:#FFFFFF;--ink:#2B3A67;--sub:#5A6A91;--line:#BCD0EE;--field:#F3F9FF;
+  --accent:#2F6FCB;--btn-ink:#FFFFFF;--yellow:#FFD84D;--coral:#FF8FA3;--cloud:#FFFFFF;
+  --ok-bg:#C9F0DE;--ok-line:#1F9C6B;--bad-bg:#FFD9E0;--bad-line:#D2475F;--ok-ink:#12714B;--bad-ink:#B3304A;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#17203F;--card:#232F58;--ink:#EEF2FF;--sub:#B3BEE0;--line:#3C4C7E;--field:#1B2650;
+  --accent:#8FB8FF;--btn-ink:#10193A;--yellow:#FFD84D;--coral:#FF9DB0;--cloud:#3A4A82;
+  --ok-bg:#1E5A47;--ok-line:#6FE0B0;--bad-bg:#5C2B3A;--bad-line:#FF9DB0;--ok-ink:#9DF0CB;--bad-ink:#FFB8C6}}
+:root[data-theme="dark"]{
+  --bg:#17203F;--card:#232F58;--ink:#EEF2FF;--sub:#B3BEE0;--line:#3C4C7E;--field:#1B2650;
+  --accent:#8FB8FF;--btn-ink:#10193A;--yellow:#FFD84D;--coral:#FF9DB0;--cloud:#3A4A82;
+  --ok-bg:#1E5A47;--ok-line:#6FE0B0;--bad-bg:#5C2B3A;--bad-line:#FF9DB0;--ok-ink:#9DF0CB;--bad-ink:#FFB8C6}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito","Noto Sans KR","Malgun Gothic",system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:600;line-height:1.5;overflow-x:hidden}
+.kr{font-family:"Jua","Noto Sans KR","Malgun Gothic",sans-serif;font-weight:400}
+
+/* họa tiết nền */
+.sky{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.dd{position:absolute;width:64px;height:40px}
+.dd.c1{left:-14px;top:9%;width:96px;height:58px;color:var(--cloud)}
+.dd.c2{right:-20px;top:22%;width:110px;height:66px;color:var(--cloud)}
+.dd.c3{left:-24px;top:62%;width:120px;height:72px;color:var(--cloud)}
+.dd.c4{right:-10px;top:80%;width:100px;height:60px;color:var(--cloud)}
+.dd.s{width:22px;height:22px;color:var(--yellow)}
+.dd.h{width:22px;height:22px;color:var(--coral)}
+.dd.g{width:46px;height:46px}
+.dd.p{width:44px;height:33px;color:var(--yellow)}
+.spin{animation:bob 5s ease-in-out infinite}
+.spin2{animation:bob 7s ease-in-out infinite reverse}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-8px) rotate(4deg)}}
+
+main{position:relative;z-index:1;max-width:520px;margin:0 auto;padding:18px 16px 56px;text-align:center}
+
+/* dây cờ */
+.bunting{position:relative;display:flex;justify-content:space-between;padding:0 6px;margin:0 -2px 6px}
+.bunting::before{content:"";position:absolute;left:0;right:0;top:9px;border-top:2.5px dashed var(--ink);opacity:.55}
+.flag{position:relative;display:block;width:44px;height:32px;border-radius:7px;overflow:hidden;border:2.5px solid var(--card);box-shadow:0 0 0 2px var(--ink);margin-top:3px;transform-origin:50% -6px;animation:sway 4s ease-in-out infinite}
+.flag:nth-child(even){animation-delay:-2s}
+.flag svg{display:block;width:100%;height:100%}
+@keyframes sway{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+
+.mascot{width:96px;height:96px;margin:8px auto 0;display:block}
+h1{font-size:40px;line-height:1.1;margin:6px 0 2px;letter-spacing:.5px}
+.sub{font-weight:800;color:var(--sub);margin:0 0 10px}
+.stickers{display:flex;justify-content:center;gap:8px;margin:0 0 18px}
+.stickers span{width:42px;height:42px;display:grid;place-items:center;font-size:22px;border-radius:50%;background:var(--card);border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--ink)}
+.stickers span:nth-child(odd){transform:rotate(-7deg)}
+.stickers span:nth-child(even){transform:rotate(6deg)}
+
+/* thẻ hộ chiếu */
+.card{position:relative;background:var(--card);border:3px solid var(--ink);border-radius:28px;padding:22px 18px;text-align:left;box-shadow:6px 7px 0 var(--yellow),6px 7px 0 3px var(--ink)}
+.card::before{content:"";position:absolute;inset:7px;border:2px dashed var(--line);border-radius:21px;pointer-events:none}
+.card>*{position:relative}
+.q{font-size:20px;font-weight:900;margin:0 0 14px;white-space:pre-line}
+.btn{width:100%;min-height:54px;margin-top:14px;border:3px solid var(--ink);border-radius:20px;background:var(--accent);color:var(--btn-ink);font-family:inherit;font-size:19px;font-weight:900;cursor:pointer;box-shadow:0 5px 0 var(--ink);transition:transform .1s,box-shadow .1s}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.btn:focus-visible,.opt:focus-visible,input:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
+
+.opt{display:flex;align-items:center;gap:12px;width:100%;min-height:56px;text-align:left;font-family:inherit;font-weight:800;font-size:18px;padding:8px 14px 8px 8px;margin-bottom:10px;border-radius:999px;border:2.5px solid var(--line);background:var(--field);color:var(--ink);cursor:pointer;transition:transform .12s}
+.opt:hover{transform:translateX(3px)}
+.opt .lt{flex:none;width:38px;height:38px;display:grid;place-items:center;border-radius:50%;background:var(--card);border:2.5px solid var(--ink);font-family:"Jua","Noto Sans KR",sans-serif;font-weight:400;font-size:19px}
+.opt .tx{flex:1;min-width:0;overflow-wrap:anywhere}
+.opt.right{border-color:var(--ok-line);background:var(--ok-bg);animation:pop .35s}
+.opt.right::after{content:"✓";font-size:24px;font-weight:900;color:var(--ok-ink)}
+.opt.wrong{border-color:var(--bad-line);background:var(--bad-bg);animation:shake .35s}
+.opt.wrong::after{content:"✗";font-size:24px;font-weight:900;color:var(--bad-ink)}
+@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.04)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+/* thanh tiến độ: máy bay giấy bay về đích */
+.trip{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.track{position:relative;flex:1;height:34px;--p:0}
+.track::before{content:"";position:absolute;left:0;right:0;top:50%;border-top:3px dashed var(--line);transform:translateY(-50%)}
+.track i{position:absolute;left:0;top:50%;height:0;border-top:4px solid var(--accent);border-radius:4px;transform:translateY(-50%);width:calc((100% - 32px) * var(--p) + 16px);transition:width .4s}
+.track .plane{position:absolute;top:50%;left:calc((100% - 32px) * var(--p));width:32px;height:24px;margin-top:-12px;color:var(--yellow);transition:left .4s}
+.pin{font-size:22px;line-height:1}
+.note{display:flex;align-items:center;justify-content:space-between;font-size:14px;font-weight:800;color:var(--sub);margin:0 0 12px}
+.qicon{display:grid;place-items:center;width:34px;height:34px;font-size:19px;border-radius:50%;background:var(--field);border:2px solid var(--line)}
+.fb{font-weight:900;margin:4px 0 0;min-height:26px}
+.fb.y{color:var(--ok-ink)}.fb.n{color:var(--bad-ink)}
+
+/* kết quả: con dấu "도착" */
+.stamp{width:190px;height:190px;margin:4px auto 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:50%;border:4px solid var(--coral);color:var(--coral);box-shadow:inset 0 0 0 6px var(--card),inset 0 0 0 9px var(--coral);transform:rotate(-8deg);background:var(--card)}
+.stamp .st{font-size:34px;line-height:1}
+.score{font-family:"Jua","Nunito",sans-serif;font-size:56px;font-weight:400;line-height:1.1;margin:0;color:var(--ink)}
+.msg{text-align:center;font-size:18px;font-weight:800;margin:0 0 12px}
+.rev{border-radius:18px;padding:12px 14px;margin-bottom:10px;background:var(--field);border:2px solid var(--line);font-size:16px}
+.rev p{margin:6px 0 0;color:var(--ok-ink);font-weight:900}
+input{width:100%;min-height:54px;font-family:inherit;font-size:20px;font-weight:800;padding:8px 16px;border-radius:18px;border:2.5px solid var(--ink);background:var(--field);color:var(--ink)}
+.lab{display:block;font-size:18px;font-weight:900;margin:14px 0 8px}
+.err{color:var(--bad-ink);font-weight:800;min-height:22px;margin:8px 0 0}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+@media (max-width:420px){h1{font-size:34px}.flag{width:38px;height:28px}.stamp{width:170px;height:170px}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="cloud" viewBox="0 0 80 48"><g fill="currentColor"><circle cx="24" cy="30" r="14"/><circle cx="42" cy="22" r="18"/><circle cx="58" cy="32" r="12"/><rect x="24" y="30" width="34" height="14"/></g></symbol>
+    <symbol id="star" viewBox="0 0 24 24"><polygon points="12,2 14.8,8.8 22,9.3 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.3 9.2,8.8" fill="currentColor"/></symbol>
+    <symbol id="heart" viewBox="0 0 24 24"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.6A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z" fill="currentColor"/></symbol>
+    <symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#8FD3FF" stroke="#2B3A67" stroke-width="1.6"/><path d="M5 9c3 0 4-3 7-3s3 2 2 4-4 1-4 4-4 2-5-5z" fill="#7AD3A0"/><ellipse cx="17" cy="14" rx="2.6" ry="3.2" fill="#7AD3A0"/></symbol>
+    <symbol id="plane" viewBox="0 0 32 24"><path d="M2 12L30 2 22 22 15 15z" fill="currentColor" style="stroke:var(--ink)" stroke-width="1.8" stroke-linejoin="round"/><path d="M15 15L30 2" fill="none" style="stroke:var(--ink)" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+
+<div class="sky" aria-hidden="true">
+  <svg class="dd c1"><use href="#cloud"/></svg>
+  <svg class="dd c2"><use href="#cloud"/></svg>
+  <svg class="dd c3"><use href="#cloud"/></svg>
+  <svg class="dd c4"><use href="#cloud"/></svg>
+  <svg class="dd s spin" style="left:7%;top:30%"><use href="#star"/></svg>
+  <svg class="dd s spin2" style="right:6%;top:46%"><use href="#star"/></svg>
+  <svg class="dd s spin" style="left:12%;top:88%"><use href="#star"/></svg>
+  <svg class="dd h spin2" style="right:9%;top:12%"><use href="#heart"/></svg>
+  <svg class="dd h spin" style="left:5%;top:50%"><use href="#heart"/></svg>
+  <svg class="dd g spin" style="right:4%;top:66%"><use href="#globe"/></svg>
+  <svg class="dd p spin2" style="left:4%;top:76%"><use href="#plane"/></svg>
+</div>
+
+<main>
+<div class="bunting" aria-hidden="true">
+  <span class="flag"><svg viewBox="0 0 36 26"><rect width="36" height="26" fill="#fff"/><path d="M13 13a5 5 0 0 1 10 0z" fill="#CD2E3A"/><path d="M13 13a5 5 0 0 0 10 0z" fill="#0047A0"/><g stroke="#222" stroke-width="1.4" stroke-linecap="round"><path d="M4 5l3.5-2.2M5.2 7l3.5-2.2"/><path d="M32 5l-3.5-2.2M30.8 7l-3.5-2.2"/><path d="M4 21l3.5 2.2M5.2 19l3.5 2.2"/><path d="M32 21l-3.5 2.2M30.8 19l-3.5 2.2"/></g></svg></span>
+  <span class="flag"><svg viewBox="0 0 36 26"><rect width="36" height="26" fill="#DA251D"/><polygon points="18,6.5 19.9,11.6 25.3,11.8 21,15.1 22.6,20.3 18,17.3 13.4,20.3 15,15.1 10.7,11.8 16.1,11.6" fill="#FFDD00"/></svg></span>
+  <span class="flag"><svg viewBox="0 0 36 26"><rect width="36" height="26" fill="#fff"/><circle cx="18" cy="13" r="6.5" fill="#BC002D"/></svg></span>
+  <span class="flag"><svg viewBox="0 0 36 26"><rect width="36" height="26" fill="#fff"/><rect width="36" height="4.33" fill="#A51931"/><rect y="21.67" width="36" height="4.33" fill="#A51931"/><rect y="8.67" width="36" height="8.66" fill="#2D2A4A"/></svg></span>
+  <span class="flag"><svg viewBox="0 0 36 26"><rect width="12" height="26" fill="#0055A4"/><rect x="12" width="12" height="26" fill="#fff"/><rect x="24" width="12" height="26" fill="#EF4135"/></svg></span>
+  <span class="flag"><svg viewBox="0 0 36 26"><rect width="36" height="8.67" fill="#111"/><rect y="8.67" width="36" height="8.67" fill="#DD0000"/><rect y="17.33" width="36" height="8.67" fill="#FFCE00"/></svg></span>
+</div>
+
+<svg class="mascot" viewBox="0 0 96 96" aria-hidden="true">
+  <ellipse cx="48" cy="58" rx="36" ry="32" fill="#FFDCE4" stroke="#2B3A67" stroke-width="3"/>
+  <path d="M19 42a29 24 0 0 1 58 0z" fill="#FFD84D" stroke="#2B3A67" stroke-width="3" stroke-linejoin="round"/>
+  <rect x="12" y="40" width="72" height="8" rx="4" fill="#FFC21A" stroke="#2B3A67" stroke-width="3"/>
+  <polygon points="48,22 50,27 55,27.4 51.2,30.6 52.4,35.4 48,32.8 43.6,35.4 44.8,30.6 41,27.4 46,27" fill="#fff"/>
+  <circle cx="36" cy="60" r="4.2" fill="#2B3A67"/><circle cx="60" cy="60" r="4.2" fill="#2B3A67"/>
+  <circle cx="37.4" cy="58.6" r="1.3" fill="#fff"/><circle cx="61.4" cy="58.6" r="1.3" fill="#fff"/>
+  <ellipse cx="27" cy="68" rx="6" ry="4" fill="#FF9DB0"/><ellipse cx="69" cy="68" rx="6" ry="4" fill="#FF9DB0"/>
+  <path d="M42 68q6 7 12 0" stroke="#2B3A67" stroke-width="3" fill="none" stroke-linecap="round"/>
+</svg>
+<h1 class="kr">나라와 직업</h1>
+<p class="sub">Quốc gia và nghề nghiệp</p>
+<div class="stickers" aria-hidden="true"><span>👩‍🏫</span><span>🧑‍⚕️</span><span>👩‍🍳</span><span>🧑‍💼</span><span>🎤</span><span>🌏</span></div>
+
+<section class="card" id="startBox">
+<p class="q">Sẵn sàng chưa? Bài có <span id="total"></span> câu, làm lần lượt từng câu. Chọn đáp án là biết đúng hay sai ngay.</p>
+<label class="lab" for="nameIn">Họ và tên của bạn</label>
+<input id="nameIn" autocomplete="name" maxlength="60" placeholder="Ví dụ: Nguyễn Lan">
+<p class="err" id="err" role="alert"></p>
+<button class="btn" id="startBtn">Cất cánh nào!</button>
+</section>
+
+<section class="card" id="quizBox" hidden>
+<div class="trip" aria-hidden="true">
+  <div class="track" id="track"><i id="bar"></i><svg class="plane"><use href="#plane"/></svg></div>
+  <span class="pin">📍</span>
+</div>
+<p class="note"><span id="count"></span><span class="qicon" id="qIcon" aria-hidden="true"></span></p>
+<p class="q" id="qText"></p>
+<div id="opts"></div>
+<p class="fb" id="fb" role="status"></p>
+<button class="btn" id="nextBtn" hidden>Câu tiếp</button>
+</section>
+
+<section class="card" id="doneBox" hidden>
+<div class="stamp"><span class="st kr">도착!</span><p class="score" id="score"></p></div>
+<p class="msg" id="msg"></p>
+<p class="note" id="sendMsg" style="justify-content:center;text-align:center" role="status"></p>
+<button class="btn" id="retryBtn" hidden>Gửi lại điểm</button>
+<div id="review"></div>
+<button class="btn" id="againBtn">Bay lại lần nữa</button>
+</section>
+</main>
+
+<script>
+var L=["ㄱ","ㄴ","ㄷ","ㄹ"];
+/* a = vị trí đáp án đúng: 0=ㄱ, 1=ㄴ, 2=ㄷ, 3=ㄹ ; t = n (quốc gia) hoặc j (nghề nghiệp) */
+var Q=[
+{t:"n",q:`'한국' nghĩa là gì?`,o:[`Nhật Bản`,`Hàn Quốc`,`Trung Quốc`,`Việt Nam`],a:1},
+{t:"n",q:`'저는 베트남 사람입니다.' Người nói là người nước nào?`,o:[`Thái Lan`,`Mỹ`,`Việt Nam`,`Nhật Bản`],a:2},
+{t:"n",q:`'Mỹ' trong tiếng Hàn là gì?`,o:[`영국`,`미국`,`중국`,`독일`],a:1},
+{t:"n",q:`Điền vào chỗ trống: 저는 일본 ___입니다. (Tôi là người Nhật.)`,o:[`나라`,`학교`,`사람`,`직업`],a:2},
+{t:"n",q:`'중국 사람' nghĩa là gì?`,o:[`Người Trung Quốc`,`Người Hàn Quốc`,`Người Nhật`,`Người Mỹ`],a:0},
+{t:"j",q:`'선생님' nghĩa là gì?`,o:[`Bác sĩ`,`Học sinh`,`Giáo viên`,`Đầu bếp`],a:2},
+{t:"j",q:`'저는 학생입니다.' Người nói làm nghề gì?`,o:[`Học sinh / sinh viên`,`Giáo viên`,`Bác sĩ`,`Công an`],a:0},
+{t:"j",q:`'Bác sĩ' trong tiếng Hàn là gì?`,o:[`간호사`,`회사원`,`요리사`,`의사`],a:3},
+{t:"j",q:`'직업이 무엇입니까?' nghĩa là gì?`,o:[`Bạn là người nước nào?`,`Nghề nghiệp của bạn là gì?`,`Bạn tên là gì?`,`Bạn bao nhiêu tuổi?`],a:1},
+{t:"n",q:`'어느 나라 사람입니까?' nghĩa là gì?`,o:[`Bạn làm nghề gì?`,`Bạn sống ở đâu?`,`Bạn học ở đâu?`,`Bạn là người nước nào?`],a:3},
+{t:"n",q:`A: 어느 나라 사람입니까?\nB: 저는 태국 사람입니다.\nB là người nước nào?`,o:[`Thái Lan`,`Trung Quốc`,`Hàn Quốc`,`Mỹ`],a:0},
+{t:"j",q:`'마이 씨는 회사원입니다.' Mai làm nghề gì?`,o:[`Giáo viên`,`Nhân viên công ty`,`Bác sĩ`,`Ca sĩ`],a:1},
+{t:"n",q:`Chọn từ đúng cho 'người Pháp':`,o:[`영국 사람`,`독일 사람`,`프랑스 사람`,`일본 사람`],a:2},
+{t:"j",q:`'요리사' nghĩa là gì?`,o:[`Ca sĩ`,`Công an`,`Y tá`,`Đầu bếp`],a:3},
+{t:"j",q:`'저는 독일 사람입니다. 의사입니다.' Người nói là ai?`,o:[`Bác sĩ người Mỹ`,`Bác sĩ người Đức`,`Giáo viên người Đức`,`Đầu bếp người Pháp`],a:1}
+];
+var $=function(i){return document.getElementById(i)};
+var API="https://script.google.com/macros/s/AKfycbzDwxyftGmLYek9G-Pstzdkehe6w0VWkpqqzxR9BI1SothloV9LQmb18TW_9ElDx50/exec";
+var idx=0,score=0,locked=false,wrong=[],student="";
+$("total").textContent=Q.length;
+
+function start(){idx=0;score=0;wrong=[];$("sendMsg").textContent="";$("retryBtn").hidden=true;$("startBox").hidden=true;$("doneBox").hidden=true;$("quizBox").hidden=false;show()}
+function show(){
+  locked=false;var q=Q[idx];
+  $("count").textContent="Câu "+(idx+1)+"/"+Q.length;
+  $("track").style.setProperty("--p",idx/Q.length);
+  $("qIcon").textContent=q.t==="n"?"🌏":"💼";
+  $("qText").textContent=q.q;
+  $("fb").textContent="";$("fb").className="fb";$("nextBtn").hidden=true;
+  var box=$("opts");box.textContent="";
+  q.o.forEach(function(t,i){
+    var b=document.createElement("button");b.className="opt";
+    var l=document.createElement("span");l.className="lt";l.textContent=L[i];
+    var x=document.createElement("span");x.className="tx";x.textContent=t;
+    b.appendChild(l);b.appendChild(x);
+    b.onclick=function(){pick(i)};box.appendChild(b);
+  });
+}
+function pick(i){
+  if(locked)return;locked=true;var q=Q[idx],kids=$("opts").children;
+  kids[q.a].classList.add("right");
+  if(i===q.a){score++;$("fb").textContent="Đúng rồi!";$("fb").className="fb y"}
+  else{kids[i].classList.add("wrong");wrong.push(idx);$("fb").textContent="Chưa đúng. Đáp án đúng là "+L[q.a]+".";$("fb").className="fb n"}
+  $("nextBtn").textContent=idx===Q.length-1?"Xem điểm":"Câu tiếp";$("nextBtn").hidden=false;
+}
+function finish(){
+  $("quizBox").hidden=true;$("doneBox").hidden=false;
+  $("score").textContent=score+"/"+Q.length;send();
+  $("msg").textContent=score===Q.length?"Tuyệt vời, đúng hết rồi!":score>=Q.length*0.7?"Giỏi lắm!":"Cố gắng thêm nhé, làm lại để nhớ lâu hơn!";
+  var rv=$("review");rv.textContent="";
+  if(wrong.length){
+    var h=document.createElement("p");h.className="note";h.textContent="Những câu cần xem lại:";rv.appendChild(h);
+    wrong.forEach(function(n){
+      var d=document.createElement("div");d.className="rev";
+      var t=document.createElement("span");t.textContent="Câu "+(n+1)+": "+Q[n].q;t.style.whiteSpace="pre-line";
+      var p=document.createElement("p");p.textContent="Đáp án: "+L[Q[n].a]+". "+Q[n].o[Q[n].a];
+      d.appendChild(t);d.appendChild(p);rv.appendChild(d);
+    });
+  }
+}
+$("startBtn").onclick=function(){
+  student=$("nameIn").value.trim();
+  if(!student){$("err").textContent="Bạn nhớ nhập họ và tên nhé.";$("nameIn").focus();return}
+  $("err").textContent="";start();
+};
+function send(){
+  var m=$("sendMsg");$("retryBtn").hidden=true;m.textContent="Đang gửi điểm...";
+  function fail(){m.textContent="Chưa gửi được điểm. Bạn bấm Gửi lại, hoặc chụp màn hình điểm gửi giáo viên nhé.";$("retryBtn").hidden=false}
+  fetch(API,{method:"POST",body:JSON.stringify({action:"eomi",bai:"quocgia-nghenghiep",name:student,score:score,total:Q.length,wrong:wrong.map(function(n){return n+1})})})
+   .then(function(r){return r.json()})
+   .then(function(d){if(d&&d.ok){m.textContent="Đã gửi điểm cho giáo viên. Cảm ơn "+student+"!"}else{fail()}})
+   .catch(fail);
+}
+$("retryBtn").onclick=send;
+$("againBtn").onclick=start;
+$("nextBtn").onclick=function(){idx++;if(idx<Q.length)show();else finish()};
+</script>
+</body>
+</html>
