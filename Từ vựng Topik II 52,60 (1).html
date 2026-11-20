@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Jua&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<title>Trắc nghiệm từ vựng TOPIK II – Đọc (câu 1–10, đề 52 & 60)</title>
+<style>
+:root{--bg:#fff3f0;--bg2:#ffe3ea;--card:#fffdfb;--ink:#4a3b47;--sub:#8c7a88;--line:#f6d5dc;--brand:#ff7aa2;--brand2:#ffb3c6;--ok:#2f9e6b;--okbg:#dff7ea;--bad:#d9577a;--badbg:#ffe1e8;--shadow:0 6px 0 #f6d5dc}
+@media (prefers-color-scheme:dark){:root{--bg:#2a2230;--bg2:#33283a;--card:#3a2f42;--ink:#fbeff3;--sub:#c9b4c3;--line:#55435e;--brand:#ff8fb1;--brand2:#b9587a;--ok:#7fe0aa;--okbg:#21463a;--bad:#ff9db6;--badbg:#4d2a38;--shadow:0 6px 0 #55435e}}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:"Nunito","Noto Sans KR","Segoe UI",system-ui,sans-serif;line-height:1.55;background:radial-gradient(circle at 12% 8%,var(--bg2) 0 90px,transparent 91px),radial-gradient(circle at 92% 22%,var(--bg2) 0 60px,transparent 61px),var(--bg)}
+main{max-width:620px;margin:0 auto;padding:22px 16px 48px}
+header{text-align:center;margin-bottom:16px}
+.mascot{font-size:3rem;line-height:1;display:inline-block;animation:float 3s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-6px)}}
+h1{font-size:1.45rem;font-weight:800;margin:6px 0 2px}
+.sub{color:var(--sub);font-size:.92rem;margin:0}
+.card{background:var(--card);border:3px solid var(--line);border-radius:28px;padding:22px 20px;box-shadow:var(--shadow)}
+.bar{height:14px;background:var(--bg2);border-radius:99px;overflow:hidden;margin-bottom:14px;border:2px solid var(--line)}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--brand2),var(--brand));width:0;border-radius:99px;transition:width .35s}
+.meta{display:flex;justify-content:space-between;color:var(--sub);font-size:.88rem;font-weight:700}
+.word{font-family:"Jua","Noto Sans KR",sans-serif;font-size:2.1rem;text-align:center;margin:14px 0 8px;padding:14px 10px;background:var(--bg2);border-radius:22px;word-break:keep-all}
+.ctx{color:var(--sub);font-size:.92rem;text-align:center;margin:0 0 8px}
+.q{text-align:center;font-weight:700;margin:6px 0 12px}
+.q small{display:block;color:var(--sub);font-weight:400}
+.opt{display:block;width:100%;text-align:left;font:inherit;font-weight:600;color:inherit;background:var(--card);border:3px solid var(--line);border-radius:18px;padding:12px 16px;margin:10px 0;cursor:pointer;box-shadow:0 4px 0 var(--line);transition:transform .1s,box-shadow .1s}
+.opt:hover:not(:disabled){border-color:var(--brand);transform:translateY(-2px)}
+.opt:active:not(:disabled){transform:translateY(3px);box-shadow:none}
+.opt:focus-visible,.btn:focus-visible{outline:3px dashed var(--brand);outline-offset:3px}
+.opt.ok{border-color:var(--ok);background:var(--okbg);box-shadow:0 4px 0 var(--ok)}
+.opt.ok::after{content:" ✓";color:var(--ok);font-weight:800}
+.opt.bad{border-color:var(--bad);background:var(--badbg);box-shadow:0 4px 0 var(--bad);animation:shake .3s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.fb{min-height:1.6em;margin:12px 0 0;text-align:center;font-weight:700}
+.btn{display:block;margin:14px auto 0;font:inherit;font-weight:800;background:var(--brand);color:#fff;border:0;border-radius:99px;padding:12px 30px;cursor:pointer;box-shadow:0 5px 0 #d9507d}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 #d9507d}
+.center{text-align:center}
+.big{font-size:3.4rem;line-height:1.1}
+.score{font-size:2.4rem;font-weight:800;margin:4px 0;color:var(--brand)}
+.rev{background:var(--bg2);border-radius:14px;padding:8px 14px;margin:8px 0;font-size:.95rem;text-align:left}
+.rev b{font-family:"Jua","Noto Sans KR",sans-serif;font-size:1.1rem;font-weight:400}
+.tm{font-weight:800}
+.tm.warn{color:var(--bad);animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.45}}
+.snd{position:fixed;top:12px;right:12px;width:44px;height:44px;border-radius:50%;border:3px solid var(--line);background:var(--card);font-size:1.2rem;cursor:pointer;box-shadow:0 3px 0 var(--line);z-index:5}
+.snd:focus-visible{outline:3px dashed var(--brand);outline-offset:3px}
+.intro h2{margin:6px 0;font-size:1.3rem}
+.hide{display:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<button class="snd hide" id="snd" aria-label="Bật hoặc tắt nhạc" title="Bật/tắt nhạc">🔊</button>
+<main>
+<header><div class="mascot" aria-hidden="true">🐰</div>
+<h1>Trắc nghiệm từ vựng TOPIK II – Đọc</h1>
+<p class="sub">15 câu · 13 giây/câu · từ và cụm từ trong câu 1–10 của đề 52 và đề 60 ✨</p></header>
+<div class="card" id="app"></div>
+</main>
+<script>
+// [từ, nghĩa đúng, 3 đáp án nhiễu, nguồn]
+const DATA=[
+["척하다 (있는 척한다)","giả vờ, làm như thể",["chỉ mỗi","đến mức","có vẻ như"],"제52회 · 3번","계속 웃고 다니는 걸 보니 좋은 일이 있나 보다. → 있는 척한다?"],
+["셈이다 (끝난 셈이다)","coi như là, xem như đã",["chắc chắn sẽ","đúng là do lỗi","đến mức"],"제52회 · 4번","방학도 다 끝난 거나 마찬가지이다. → 끝난 셈이다"],
+["-아/어 봐야 (수리해 봐야)","dù có thử làm cũng (không ích gì)",["nếu làm thử thì sẽ thấy","vừa làm xong là","nhờ làm mà"],"제60회 · 4번","이 컴퓨터는 낡아서 수리해 봐야 오래 쓰기 어렵다."],
+["잠이 솔솔 오다","buồn ngủ nhẹ nhàng, dễ vào giấc",["ngủ không yên giấc","tỉnh ngủ hẳn","hay mơ khi ngủ"],"제52회 · 5번","눕는 순간 잠이 솔솔~ 아침까지 편안하게"],
+["영양소가 가득","chứa đầy chất dinh dưỡng",["thiếu chất dinh dưỡng","bổ sung vitamin mỗi ngày","có thêm phụ gia"],"제60회 · 5번","몸에 좋은 영양소가 가득~"],
+["부담 없는 가격","giá cả phải chăng, không gây áp lực",["giá giảm đặc biệt trong ngày","giá cố định, không thương lượng","giá đã gồm phí dịch vụ"],"제52회 · 6번","신선한 재료! 부담 없는 가격!"],
+["한 번에 해결","giải quyết trọn gói trong một lần",["giải quyết từng bước","giải quyết miễn phí","giải quyết sau"],"제60회 · 6번","세탁부터 건조까지 한 번에 해결!"],
+["자리 양보","nhường chỗ",["đặt chỗ","đổi chỗ","giữ chỗ"],"제52회 · 7번 (đáp án ③)","① 자연 보호 ② 시간 절약 ③ 자리 양보 ④ 안전 관리"],
+["두고 가다","để lại, không mang theo",["mang theo","vứt bỏ","gửi lại cho người khác"],"제60회 · 7번","등산할 때 담배와 라이터는 두고 가세요."],
+["가져다 드리다","mang đến tận nơi giúp",["đến lấy giúp","gửi qua bưu điện","đổi hàng giúp"],"제52회 · 8번","오후 1시까지 구매하면 그날 가져다 드립니다."],
+["아무것도 드시면 안 됩니다","không được ăn uống gì cả",["chỉ được ăn một chút","ăn gì cũng được","không được ăn đồ nóng"],"제60회 · 8번","검사 전날 밤 9시 이후에는 아무것도 드시면 안 됩니다."],
+["제외","loại trừ, ngoại trừ",["bao gồm","ưu tiên","giới hạn số lượng"],"제52회 · 9번","1인 10권 이내 신청 가능(잡지, 어학 교재 제외)"],
+["이내","trong vòng, không quá",["ít nhất","khoảng chừng","sau khi"],"제52회 · 9번","1인 10권 이내 신청 가능"],
+["적성","năng khiếu, sự phù hợp với bản thân",["sự ổn định của nghề","điều kiện làm việc","sự phát triển cá nhân"],"제52회 · 10번","직업 선택의 기준: 적성 13%"],
+["노후","tuổi già, giai đoạn sau nghỉ hưu",["thời thơ ấu","tuổi trung niên","quá khứ"],"제60회 · 10번","노후에 가장 하고 싶은 일"]
+];
+const app=document.getElementById("app");
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+let order,idx,score,wrong;
+function start(){order=shuffle(DATA);idx=0;score=0;wrong=[];show()}
+function show(){
+  const [w,ans,bad,src,ctx]=order[idx];
+  const opts=shuffle([ans,...bad]);
+  app.innerHTML=`<div class="bar"><i style="width:${idx/order.length*100}%"></i></div>
+  <div class="meta"><span>Câu ${idx+1}/${order.length}</span><span class="tm" id="tm">⏰ 0:13</span><span>⭐ ${score}</span></div>
+  <div class="word" lang="ko">${w}</div>
+  <p class="ctx" lang="ko">${ctx}</p><p class="q">Nghĩa là gì? <small>(${src})</small></p>
+  <div id="opts">${opts.map(o=>`<button class="opt">${o}</button>`).join("")}</div>
+  <p class="fb" id="fb" aria-live="polite"></p>
+  <button class="btn hide" id="next">${idx===order.length-1?"Xem kết quả":"Câu tiếp"}</button>`;
+  app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>pick(b,ans,w));
+  startTimer(ans,w);
+  document.getElementById("next").onclick=()=>{idx++;idx<order.length?show():end()};
+}
+function pick(btn,ans,w){
+  stopTimer();const ok=btn.textContent===ans;
+  app.querySelectorAll(".opt").forEach(b=>{b.disabled=true;if(b.textContent===ans)b.classList.add("ok")});
+  if(ok){sfx(true);score++;document.getElementById("fb").textContent="Giỏi quá, đúng rồi! 🎉"}
+  else{sfx(false);btn.classList.add("bad");wrong.push([w,ans]);document.getElementById("fb").textContent="Chưa đúng rồi 🥲 Đáp án: "+ans}
+  document.getElementById("next").classList.remove("hide");
+  document.getElementById("next").focus();
+}
+function end(){stopTimer();
+  const n=order.length;
+  app.innerHTML=`<div class="bar"><i style="width:100%"></i></div>
+  <div class="center"><div class="big">${score===n?"🏆":score>=n*0.7?"🌸":"🌱"}</div><div class="score">${score}/${n}</div></div>
+  <p class="center">${score===n?"Tuyệt đối! Bạn nhớ hết từ vựng rồi 🥳":score>=n*0.7?"Khá tốt! Ôn lại vài từ bên dưới nhé 💪":"Cố lên! Xem lại các từ bên dưới rồi làm lại nha 📚"}</p>
+  ${wrong.length?`<div>${wrong.map(([w,a])=>`<div class="rev"><b lang="ko">${w}</b> → ${a}</div>`).join("")}</div>`:""}
+  <button class="btn" id="again">Làm lại nào 🔄</button>`;
+  document.getElementById("again").onclick=start;
+}
+/* ===== Đồng hồ 13 giây mỗi câu ===== */
+const TIME=13;let timerId=null,left=TIME;
+const fmt=t=>Math.floor(t/60)+":"+String(t%60).padStart(2,"0");
+function stopTimer(){clearInterval(timerId);timerId=null}
+function startTimer(ans,w){
+  stopTimer();left=TIME;const tm=document.getElementById("tm");
+  const draw=()=>{tm.textContent="⏰ "+fmt(left);tm.classList.toggle("warn",left<=5)};draw();
+  timerId=setInterval(()=>{left--;draw();if(left<=0){stopTimer();timeUp(ans,w)}},1000);
+}
+function timeUp(ans,w){
+  app.querySelectorAll(".opt").forEach(b=>{b.disabled=true;if(b.textContent===ans)b.classList.add("ok")});
+  wrong.push([w,ans]);sfx(false);
+  document.getElementById("fb").textContent="Hết giờ rồi ⏰ Đáp án: "+ans;
+  const nx=document.getElementById("next");nx.classList.remove("hide");nx.focus();
+}
+/* ===== Nhạc nền nhẹ (tạo bằng Web Audio, không cần file ngoài) ===== */
+let AC=null,musicGain=null,sfxGain=null,muted=false,sched=null,nextT=0,stepN=0;
+const SC=[523.25,587.33,659.25,783.99,880,1046.5];
+const CH=[[261.63,329.63,392],[220,261.63,329.63],[174.61,220,261.63],[196,246.94,293.66]];
+const ME=[[2,-1,3,2,0,-1,1,0],[4,-1,3,2,1,-1,2,-1],[3,-1,2,1,0,-1,1,2],[1,-1,2,3,4,-1,2,-1]];
+const STEP=0.32;
+function tone(f,t,type,peak,dur,out){
+  const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;
+  g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(peak,t+0.02);
+  g.gain.exponentialRampToValueAtTime(0.0001,t+dur);o.connect(g);g.connect(out);o.start(t);o.stop(t+dur+0.05);
+}
+function scheduler(){
+  while(nextT<AC.currentTime+0.4){
+    const bar=Math.floor(stepN/8)%4,st=stepN%8;
+    if(st===0)CH[bar].forEach(f=>tone(f/2,nextT,"sine",0.35,STEP*8,musicGain));
+    const n=ME[bar][st];if(n>=0)tone(SC[n],nextT,"triangle",0.5,1.1,musicGain);
+    nextT+=STEP;stepN++;
+  }
+}
+function initAudio(){
+  if(AC)return;
+  try{
+    AC=new (window.AudioContext||window.webkitAudioContext)();
+    musicGain=AC.createGain();musicGain.gain.value=muted?0:0.05;musicGain.connect(AC.destination);
+    sfxGain=AC.createGain();sfxGain.gain.value=0.07;sfxGain.connect(AC.destination);
+    nextT=AC.currentTime+0.1;sched=setInterval(scheduler,120);
+  }catch(e){AC=null}
+}
+function sfx(good){
+  if(!AC||muted)return;const t=AC.currentTime;
+  if(good){tone(880,t,"sine",0.6,0.35,sfxGain);tone(1318.5,t+0.1,"sine",0.6,0.45,sfxGain)}
+  else{tone(330,t,"sine",0.5,0.3,sfxGain);tone(262,t+0.14,"sine",0.5,0.45,sfxGain)}
+}
+const sndBtn=document.getElementById("snd");
+sndBtn.onclick=()=>{muted=!muted;sndBtn.textContent=muted?"🔇":"🔊";if(musicGain)musicGain.gain.value=muted?0:0.05};
+document.addEventListener("visibilitychange",()=>{if(!AC)return;document.hidden?AC.suspend():AC.resume()});
+/* ===== Màn bắt đầu ===== */
+app.innerHTML=`<div class="center intro"><div class="big">🎧</div><h2>Sẵn sàng chưa?</h2>
+<p>15 câu · mỗi câu có <b>13 giây</b><br>Có nhạc nhẹ giúp tập trung 🎵<br><small>Bấm nút 🔊 ở góc phải để tắt hoặc bật nhạc</small></p>
+<button class="btn" id="go">Bắt đầu thôi ✨</button></div>`;
+document.getElementById("go").onclick=()=>{initAudio();sndBtn.classList.remove("hide");start()};
+</script>
+</body>
+</html>
