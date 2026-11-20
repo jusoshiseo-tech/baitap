@@ -1,0 +1,7 @@
+{"id":"so1-b01-tuvung","tieude":"Sơ cấp 1 – Bài 1 – Từ vựng (bài mẫu)","giay":20,"cauhoi":[
+ {"id":"q1","loai":"chon","hoi":"학생","goiy":"Nghĩa là gì?","luachon":["học sinh","giáo viên","bác sĩ","nhân viên công ty"]},
+ {"id":"q2","loai":"chon","hoi":"선생님","goiy":"Nghĩa là gì?","luachon":["giáo viên","học sinh","ca sĩ","đầu bếp"]},
+ {"id":"q3","loai":"chon","hoi":"의사","goiy":"Nghĩa là gì?","luachon":["bác sĩ","y tá","cảnh sát","tài xế"]},
+ {"id":"q4","loai":"dien","hoi":"저는 ___입니다.","goiy":"Gõ từ tiếng Hàn nghĩa là \"học sinh\""},
+ {"id":"q5","loai":"sapxep","hoi":"Sắp xếp thành câu: \"Tôi là giáo viên\"","tu":["입니다","저는","선생님"]}
+]}

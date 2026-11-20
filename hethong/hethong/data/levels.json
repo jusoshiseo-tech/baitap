@@ -1,0 +1,16 @@
+{
+ "dang":[
+  {"id":"tuvung","ten":"Từ vựng","icon":"📝"},
+  {"id":"nguphap","ten":"Ngữ pháp","icon":"🧩"},
+  {"id":"dientu","ten":"Điền từ","icon":"✏️"},
+  {"id":"sapxep","ten":"Sắp xếp câu","icon":"🔀"},
+  {"id":"tracnghiem","ten":"Trắc nghiệm","icon":"✅"},
+  {"id":"ontap","ten":"Ôn tập tổng hợp","icon":"🌟"}
+ ],
+ "capdo":[
+  {"id":"so1","ten":"Sơ cấp 1","icon":"🌱","mota":"Làm quen tiếng Hàn và giao tiếp cơ bản","bai":[{"id":"b01","ten":"Bài 1 (bài mẫu thử nghiệm)","dang":["tuvung"]}]},
+  {"id":"so2","ten":"Sơ cấp 2","icon":"🌷","mota":"Mở rộng câu và hội thoại hằng ngày","bai":[]},
+  {"id":"trung3","ten":"Trung cấp 3","icon":"🌸","mota":"Diễn đạt ý kiến và đọc văn bản ngắn","bai":[]},
+  {"id":"trung4","ten":"Trung cấp 4","icon":"🌺","mota":"Đọc hiểu bài viết và chủ đề xã hội","bai":[]}
+ ]
+}
