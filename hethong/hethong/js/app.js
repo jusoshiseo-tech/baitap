@@ -9,7 +9,7 @@ const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(M
 const norm=s=>String(s).trim().replace(/\s+/g," ");
 const page=document.body.dataset.page;
 if(page==="capdo")capdo();else if(page==="baihoc")baihoc();else if(page==="lambai")quiz();
-
+ 
 async function capdo(){
   const box=$("#list");
   try{
@@ -17,7 +17,7 @@ async function capdo(){
     box.innerHTML=d.capdo.map(c=>`<a class="tile" href="baihoc.html?cap=${c.id}"><span class="em">${c.icon}</span><b>${esc(c.ten)}</b><small>${esc(c.mota)}</small><i>${c.bai.length?c.bai.length+" bài":"Sắp ra mắt"}</i></a>`).join("");
   }catch(e){box.textContent="Không tải được danh sách cấp độ."}
 }
-
+ 
 async function baihoc(){
   const box=$("#list");
   try{
@@ -28,7 +28,7 @@ async function baihoc(){
     box.innerHTML=c.bai.length?c.bai.map(b=>`<div class="lesson"><h3>${esc(b.ten)}</h3><div class="chips">${d.dang.map(g=>b.dang.includes(g.id)?`<a class="chip" href="lambai.html?f=${c.id}/${b.id}-${g.id}">${g.icon} ${esc(g.ten)}</a>`:`<span class="chip off">${g.icon} ${esc(g.ten)}</span>`).join("")}</div></div>`).join(""):"<p class='empty'>Cấp độ này sắp có bài. 🌱</p>";
   }catch(e){box.textContent="Không tải được danh sách bài."}
 }
-
+ 
 async function quiz(){
   const box=$("#quiz"),f=qs.get("f")||"";
   if(!/^[\w-]+\/[\w-]+$/.test(f)){box.textContent="Đường dẫn bài không hợp lệ.";return}
@@ -50,9 +50,9 @@ async function quiz(){
       luot=r.luot;show();
     }catch(e){$("#er").textContent="Không kết nối được máy chủ. Bạn kiểm tra mạng rồi thử lại nhé.";bd.disabled=false}
   };
-
+ 
   function done(ans){clearInterval(timer);tl.push({id:de.cauhoi[i].id,chon:ans,ms:Date.now()-t0});i++;i<N?show():finish()}
-
+ 
   function show(){
     const q=de.cauhoi[i];left=G;
     box.innerHTML=`<div class="bar"><i style="width:${i/N*100}%"></i></div>
@@ -64,3 +64,39 @@ async function quiz(){
       a.querySelectorAll(".opt").forEach(b=>b.onclick=()=>done(b.textContent));
     }else if(q.loai==="dien"){
       a.innerHTML=`<input id="in" class="in" autocomplete="off" lang="ko"><div class="center"><button class="btn" id="ok">Xác nhận</button></div>`;
+      const inp=$("#in");inp.focus();const go=()=>done(inp.value);
+      $("#ok").onclick=go;inp.onkeydown=e=>{if(e.key==="Enter")go()};
+    }else if(q.loai==="sapxep"){
+      const sel=[],word=k=>q.tu[k];
+      const pool=shuffle(q.tu.map((w,k)=>({w,k})));
+      const draw=()=>{
+        a.innerHTML=`<div class="tray" lang="ko">${sel.map(k=>`<button class="tile2 on" data-s="${k}">${esc(word(k))}</button>`).join("")||"<small>Chạm vào các từ bên dưới theo đúng thứ tự</small>"}</div>
+        <div class="tray" lang="ko">${pool.filter(p=>!sel.includes(p.k)).map(p=>`<button class="tile2" data-p="${p.k}">${esc(p.w)}</button>`).join("")}</div>
+        <div class="center"><button class="btn" id="ok">Xác nhận</button></div>`;
+        a.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>{sel.push(+b.dataset.p);draw()});
+        a.querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>{sel.splice(sel.indexOf(+b.dataset.s),1);draw()});
+        $("#ok").onclick=()=>done(sel.map(word).join(" "));
+      };
+      draw();
+    }
+    t0=Date.now();
+    timer=setInterval(()=>{left--;const tm=$("#tm");tm.textContent="⏰ "+left;tm.classList.toggle("warn",left<=5);if(left<=0)done("")},1000);
+  }
+ 
+  async function finish(){
+    box.innerHTML="<p class='center'>Đang chấm bài… ⏳</p>";
+    let r;
+    try{r=await goi({action:"nop",luot:luot,tl:tl})}
+    catch(e){
+      box.innerHTML="<p class='center'>Chưa gửi được bài lên máy chủ. Bạn giữ nguyên trang này, kiểm tra mạng rồi bấm gửi lại nhé.</p><div class='center'><button class='btn' id='gl'>Gửi lại 🔁</button></div>";
+      $("#gl").onclick=finish;return;
+    }
+    if(!r.ok){box.innerHTML="<p class='center err'>"+esc(r.loi||"Có lỗi khi chấm bài.")+"</p><div class='center'><a class='btn' href='baihoc.html?cap="+f.split("/")[0]+"'>Về danh sách</a></div>";return}
+    const hoi={};de.cauhoi.forEach(q=>hoi[q.id]=q.hoi);
+    const tb=(r.chitiet.reduce((s,x)=>s+x.ms,0)/r.chitiet.length/1000).toFixed(1);
+    const bai=Object.fromEntries(tl.map(t=>[t.id,t.chon]));
+    box.innerHTML=`<div class="center"><div style="font-size:3rem">${r.diem===r.tong?"🏆":r.diem>=r.tong*0.7?"🌸":"🌱"}</div><p class="score">${r.diem}/${r.tong}</p><p>Thời gian trung bình: ${tb} giây/câu</p><p class="note">Kết quả của bạn đã được lưu cho giáo viên ✅</p></div>
+    ${r.chitiet.map((x,k)=>`<div class="rev ${x.dung?"ok":"no"}">${k+1}. <b lang="ko">${esc(hoi[x.id]||x.id)}</b><br>Bạn chọn: ${bai[x.id]?esc(bai[x.id]):"(hết giờ)"} ${x.dung?"✅":"❌"+(x.dapan?" Đáp án: "+esc(x.dapan):"")} · ${(x.ms/1000).toFixed(1)} giây</div>`).join("")}
+    <div class="center"><button class="btn" onclick="location.reload()">Làm lại 🔄</button> <a class="btn" href="baihoc.html?cap=${f.split("/")[0]}">Về danh sách</a></div>`;
+  }
+}
