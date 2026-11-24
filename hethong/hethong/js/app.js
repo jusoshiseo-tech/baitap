@@ -1,25 +1,49 @@
-/* WEBSITE BÀI TẬP TIẾNG HÀN
+/* WEBSITE BÀI TẬP TIẾNG HÀN - GIAO DIỆN CHIBI HÀN QUỐC
    GitHub Pages + Google Apps Script + Google Sheets
-   Giữ bài tập cũ và bổ sung bài tập mới.
+   Cần có thêm file chibi.css nằm cùng thư mục với app.js
 */
+
+/* Tự nạp giao diện chibi.css (không cần sửa các file HTML) */
+(function () {
+  const s = document.currentScript;
+  const l = document.createElement("link");
+  l.rel = "stylesheet";
+  l.href = s && s.src ? s.src.replace(/app\.js(\?.*)?$/, "chibi.css") : "chibi.css";
+  document.head.appendChild(l);
+})();
 
 const CONFIG = {
   API_URL: "https://script.google.com/macros/s/AKfycbxYJwT-nxZFrC0BUrOUFPqGCc1xBh19y_9UhT56Ey1M_thKE3A7IrJbj-7TRbffj6Xi/exec"
 };
+
+/* ===== HÌNH CHIBI (vẽ bằng SVG) ===== */
+const SPRITE = `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="cb-girl" viewBox="0 0 64 64"><path d="M20 44H44L55 62H9Z" fill="#6FCFBF"/><rect x="21" y="36" width="22" height="12" rx="4" fill="#FF9EBB"/><path d="M27 36L32 45L37 36Z" fill="#fff"/><path d="M30 44L32 52L34 44Z" fill="#E8456B"/><circle cx="32" cy="23" r="15" fill="#FFE2CC"/><path d="M17 24Q16 7 32 7Q48 7 47 24Q42 13 32 13Q22 13 17 24Z" fill="#2B2030"/><circle cx="32" cy="6" r="5" fill="#2B2030"/><circle cx="32" cy="11" r="2" fill="#E8456B"/><circle cx="26" cy="25" r="2" fill="#2B2030"/><circle cx="38" cy="25" r="2" fill="#2B2030"/><circle cx="22" cy="30" r="3" fill="#FF9EBB"/><circle cx="42" cy="30" r="3" fill="#FF9EBB"/><path d="M29 30Q32 33 35 30" stroke="#2B2030" stroke-width="1.5" fill="none"/></symbol>
+<symbol id="cb-boy" viewBox="0 0 64 64"><rect x="19" y="44" width="26" height="17" rx="6" fill="#fff" stroke="#BFC6E0" stroke-width="1.5"/><rect x="21" y="35" width="22" height="13" rx="4" fill="#6EA8FF"/><path d="M27 35L32 44L37 35Z" fill="#fff"/><circle cx="32" cy="23" r="15" fill="#FFE2CC"/><ellipse cx="32" cy="13" rx="20" ry="5" fill="#2B2030"/><rect x="25" y="2" width="14" height="12" rx="6" fill="#2B2030"/><circle cx="26" cy="25" r="2" fill="#2B2030"/><circle cx="38" cy="25" r="2" fill="#2B2030"/><circle cx="22" cy="30" r="3" fill="#FF9EBB"/><circle cx="42" cy="30" r="3" fill="#FF9EBB"/><path d="M29 30Q32 33 35 30" stroke="#2B2030" stroke-width="1.5" fill="none"/></symbol>
+<symbol id="cb-tower" viewBox="0 0 64 64"><ellipse cx="32" cy="62" rx="30" ry="11" fill="#8FDDAE"/><path d="M29 58L30.5 28H33.5L35 58Z" fill="#E6E9F2" stroke="#3A2A4D" stroke-width="1.5"/><path d="M32 18V3" stroke="#3A2A4D" stroke-width="2"/><ellipse cx="32" cy="24" rx="10" ry="6" fill="#FF8FA8" stroke="#3A2A4D" stroke-width="1.5"/><circle cx="28" cy="24" r="1.6" fill="#3A2A4D"/><circle cx="36" cy="24" r="1.6" fill="#3A2A4D"/></symbol>
+<symbol id="cb-tiger" viewBox="0 0 64 64"><circle cx="14" cy="16" r="8" fill="#FFB259"/><circle cx="50" cy="16" r="8" fill="#FFB259"/><circle cx="32" cy="35" r="23" fill="#FFB259"/><path d="M32 13V22M24 14L26 22M40 14L38 22M10 34H18M10 41L17 38M54 34H46M54 41L47 38" stroke="#3A2A4D" stroke-width="3" stroke-linecap="round"/><ellipse cx="32" cy="44" rx="11" ry="8" fill="#FFF4E0"/><circle cx="23" cy="33" r="2.4" fill="#3A2A4D"/><circle cx="41" cy="33" r="2.4" fill="#3A2A4D"/><path d="M29 41H35L32 44Z" fill="#E8456B"/><path d="M32 44V47M27 48Q32 51 37 48" stroke="#3A2A4D" stroke-width="1.5" fill="none"/></symbol>
+</defs></svg>`;
+
+const BANNER = `<svg class="cd-banner" viewBox="0 0 346 150" role="img" aria-label="Tháp Namsan cùng hai bạn nhỏ mặc hanbok">
+<rect width="346" height="150" fill="#D9F0FF"/><ellipse cx="60" cy="34" rx="30" ry="11" fill="#fff"/><ellipse cx="290" cy="46" rx="26" ry="9" fill="#fff"/><ellipse cx="173" cy="150" rx="210" ry="38" fill="#9BE3B5"/>
+<use href="#cb-tower" x="128" y="6" width="90" height="120"/>
+<use href="#cb-girl" x="22" y="62" width="88" height="88"/><use href="#cb-boy" x="236" y="62" width="88" height="88"/>
+<rect x="228" y="12" width="82" height="30" rx="15" fill="#fff"/><path d="M250 42L246 52L260 42Z" fill="#fff"/>
+<text x="269" y="33" text-anchor="middle" font-family="Noto Sans KR,sans-serif" font-weight="700" font-size="15" fill="#A3124B">안녕!</text>
+<circle cx="112" cy="30" r="3" fill="#FF9EBB"/><circle cx="225" cy="70" r="3" fill="#FF9EBB"/><circle cx="20" cy="70" r="3" fill="#FF9EBB"/><circle cx="330" cy="100" r="3" fill="#FF9EBB"/></svg>`;
+
+/* Mỗi cấp độ một nhân vật. Muốn đổi: sửa chữ girl / boy / tower / tiger */
+const CAP_ICON = { so1: "girl", so2: "boy", trung3: "tower", trung4: "tiger" };
+const chibi = name => `<svg viewBox="0 0 64 64" aria-hidden="true"><use href="#cb-${name}"/></svg>`;
+const iconCap = id => chibi(CAP_ICON[id] || "girl");
 
 const $ = s => document.querySelector(s);
 const qs = new URLSearchParams(location.search);
 const page = document.body.dataset.page;
 
 const esc = t => String(t ?? "").replace(/[&<>"']/g, c => ({
-  "&": "&amp;",
-  "<": "&lt;",
-  ">": "&gt;",
-  '"': "&quot;",
-  "'": "&#39;"
+  "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
 }[c]));
-
-const norm = s => String(s ?? "").trim().replace(/\s+/g, " ");
 
 const shuffle = a => {
   a = a.slice();
@@ -38,19 +62,14 @@ async function getJSON(url) {
 
 async function apiGet(params) {
   const url = new URL(CONFIG.API_URL);
-  Object.entries(params).forEach(([k, v]) => {
-    url.searchParams.set(k, v);
-  });
+  Object.entries(params).forEach(([k, v]) => { url.searchParams.set(k, v); });
   const r = await getJSON(url.toString());
   if (!r.ok) throw new Error(r.loi || "Lỗi máy chủ");
   return r;
 }
 
 async function goi(data) {
-  const r = await fetch(CONFIG.API_URL, {
-    method: "POST",
-    body: JSON.stringify(data)
-  });
+  const r = await fetch(CONFIG.API_URL, { method: "POST", body: JSON.stringify(data) });
   if (!r.ok) throw new Error("Không kết nối được máy chủ");
   return r.json();
 }
@@ -74,10 +93,7 @@ const DANG_MAC_DINH = [
 
 /* Đọc dữ liệu cũ và mới, không xóa bài cũ */
 async function layDanhSach() {
-  let local = {
-    capdo: [],
-    dang: DANG_MAC_DINH
-  };
+  let local = { capdo: [], dang: DANG_MAC_DINH };
 
   try {
     local = await getJSON("data/levels.json");
@@ -100,13 +116,7 @@ async function layDanhSach() {
       let level = result.capdo.find(x => x.id === cap);
 
       if (!level) {
-        level = {
-          id: cap,
-          ten: cap,
-          icon: "📚",
-          mota: "Bài tập tiếng Hàn",
-          bai: []
-        };
+        level = { id: cap, ten: cap, icon: "📚", mota: "Bài tập tiếng Hàn", bai: [] };
         result.capdo.push(level);
       }
 
@@ -115,11 +125,7 @@ async function layDanhSach() {
       let lesson = level.bai.find(x => x.id === b.id);
 
       if (!lesson) {
-        lesson = {
-          id: b.id,
-          ten: b.ten,
-          dang: []
-        };
+        lesson = { id: b.id, ten: b.ten, dang: [] };
         level.bai.push(lesson);
       }
 
@@ -143,23 +149,26 @@ async function capdo() {
   const box = $("#list");
   if (!box) return;
 
+  if (!$(".cd-banner")) box.insertAdjacentHTML("beforebegin", BANNER);
   box.textContent = "Đang tải danh sách cấp độ…";
 
   try {
     const d = await layDanhSach();
 
-    box.innerHTML = d.capdo.map(c => {
+    box.innerHTML = `<div class="cd-list">` + d.capdo.map((c, k) => {
       const soBai = (c.bai || []).length;
 
       return `
-        <a class="tile" href="baihoc.html?cap=${encodeURIComponent(c.id)}">
-          <span class="em">${esc(c.icon || "📚")}</span>
-          <b>${esc(c.ten)}</b>
-          <small>${esc(c.mota || "")}</small>
-          <i>${soBai ? soBai + " bài" : "Sắp ra mắt"}</i>
+        <a class="cd-card cd-${(k % 4) + 1}" href="baihoc.html?cap=${encodeURIComponent(c.id)}">
+          <span class="cd-ic">${iconCap(c.id)}</span>
+          <span>
+            <b class="cd-t">${esc(c.ten)}</b>
+            <small class="cd-d">${esc(c.mota || "")}</small>
+            <i class="cd-n ${soBai ? "" : "soon"}">${soBai ? soBai + " bài" : "Sắp ra mắt"}</i>
+          </span>
         </a>
       `;
-    }).join("");
+    }).join("") + `</div>`;
 
     if (!d.capdo.length) {
       box.textContent = "Chưa có cấp độ nào.";
@@ -200,33 +209,24 @@ async function baihoc() {
         const old = (b.dang || []).includes(g.id);
 
         if (remoteId) {
-          return `
-            <a class="chip" href="lambai.html?de=${encodeURIComponent(remoteId)}">
-              ${esc(g.icon)} ${esc(g.ten)}
-            </a>
-          `;
+          return `<a class="chip" href="lambai.html?de=${encodeURIComponent(remoteId)}">${esc(g.icon)} ${esc(g.ten)}</a>`;
         }
 
         if (old) {
           const f = `${c.id}/${b.id}-${g.id}`;
-          return `
-            <a class="chip" href="lambai.html?f=${encodeURIComponent(f)}">
-              ${esc(g.icon)} ${esc(g.ten)}
-            </a>
-          `;
+          return `<a class="chip" href="lambai.html?f=${encodeURIComponent(f)}">${esc(g.icon)} ${esc(g.ten)}</a>`;
         }
 
-        return `
-          <span class="chip off">
-            ${esc(g.icon)} ${esc(g.ten)}
-          </span>
-        `;
+        return `<span class="chip off">${esc(g.icon)} ${esc(g.ten)}</span>`;
       }).join("");
 
       return `
-        <div class="lesson">
-          <h3>${esc(b.ten)}</h3>
-          <div class="chips">${chips}</div>
+        <div class="lesson bl-card">
+          <span class="bl-ic">${iconCap(c.id)}</span>
+          <div>
+            <h3>${esc(b.ten)}</h3>
+            <div class="chips">${chips}</div>
+          </div>
         </div>
       `;
     }).join("");
@@ -256,20 +256,10 @@ async function quiz() {
 
   try {
     if (deId) {
-      if (!/^[\w-]+$/.test(deId)) {
-        throw new Error("Mã đề không hợp lệ");
-      }
-
-      de = await apiGet({
-        action: "dethi",
-        de: deId
-      });
-
+      if (!/^[\w-]+$/.test(deId)) throw new Error("Mã đề không hợp lệ");
+      de = await apiGet({ action: "dethi", de: deId });
     } else {
-      if (!/^[\w-]+\/[\w-]+$/.test(f)) {
-        throw new Error("Đường dẫn bài không hợp lệ");
-      }
-
+      if (!/^[\w-]+\/[\w-]+$/.test(f)) throw new Error("Đường dẫn bài không hợp lệ");
       de = await getJSON("data/" + f + ".json");
     }
   } catch (e) {
@@ -306,8 +296,7 @@ async function quiz() {
 
     <label class="f">
       Mã học viên
-      <input id="ma" autocomplete="off"
-        value="${esc(sessionStorage.getItem("maHV") || "")}">
+      <input id="ma" autocomplete="off" value="${esc(sessionStorage.getItem("maHV") || "")}">
     </label>
 
     <button class="btn" id="bd">Bắt đầu ✨</button>
@@ -329,11 +318,7 @@ async function quiz() {
     $("#er").textContent = "Đang kiểm tra… ⏳";
 
     try {
-      const r = await goi({
-        action: "batdau",
-        ma: ma,
-        de: de.id
-      });
+      const r = await goi({ action: "batdau", ma: ma, de: de.id });
 
       if (!r.ok) {
         $("#er").textContent = r.loi || "Chưa bắt đầu được.";
@@ -378,9 +363,7 @@ async function quiz() {
     left = G;
 
     box.innerHTML = `
-      <div class="bar">
-        <i style="width:${i / N * 100}%"></i>
-      </div>
+      <div class="bar"><i style="width:${i / N * 100}%"></i></div>
 
       <div class="meta">
         <span>Câu ${i + 1}/${N}</span>
@@ -397,9 +380,7 @@ async function quiz() {
     const a = $("#ans");
 
     if (q.loai === "chon") {
-      a.innerHTML = shuffle(q.luachon || []).map(o => `
-        <button class="opt">${esc(o)}</button>
-      `).join("");
+      a.innerHTML = shuffle(q.luachon || []).map(o => `<button class="opt">${esc(o)}</button>`).join("");
 
       a.querySelectorAll(".opt").forEach(b => {
         b.onclick = () => done(b.textContent);
@@ -408,9 +389,7 @@ async function quiz() {
     } else if (q.loai === "dien") {
       a.innerHTML = `
         <input id="in" class="in" autocomplete="off" lang="ko">
-        <div class="center">
-          <button class="btn" id="ok">Xác nhận</button>
-        </div>
+        <div class="center"><button class="btn" id="ok">Xác nhận</button></div>
       `;
 
       const inp = $("#in");
@@ -419,9 +398,7 @@ async function quiz() {
       const go = () => done(inp.value);
 
       $("#ok").onclick = go;
-      inp.onkeydown = e => {
-        if (e.key === "Enter") go();
-      };
+      inp.onkeydown = e => { if (e.key === "Enter") go(); };
 
     } else if (q.loai === "sapxep") {
       const words = q.tu || [];
@@ -431,31 +408,18 @@ async function quiz() {
       const draw = () => {
         a.innerHTML = `
           <div class="tray" lang="ko">
-            ${sel.map(k => `
-              <button class="tile2 on" data-s="${k}">
-                ${esc(words[k])}
-              </button>
-            `).join("") || "<small>Chọn các từ theo đúng thứ tự</small>"}
+            ${sel.map(k => `<button class="tile2 on" data-s="${k}">${esc(words[k])}</button>`).join("") || "<small>Chọn các từ theo đúng thứ tự</small>"}
           </div>
 
           <div class="tray" lang="ko">
-            ${pool.filter(p => !sel.includes(p.k)).map(p => `
-              <button class="tile2" data-p="${p.k}">
-                ${esc(p.w)}
-              </button>
-            `).join("")}
+            ${pool.filter(p => !sel.includes(p.k)).map(p => `<button class="tile2" data-p="${p.k}">${esc(p.w)}</button>`).join("")}
           </div>
 
-          <div class="center">
-            <button class="btn" id="ok">Xác nhận</button>
-          </div>
+          <div class="center"><button class="btn" id="ok">Xác nhận</button></div>
         `;
 
         a.querySelectorAll("[data-p]").forEach(b => {
-          b.onclick = () => {
-            sel.push(Number(b.dataset.p));
-            draw();
-          };
+          b.onclick = () => { sel.push(Number(b.dataset.p)); draw(); };
         });
 
         a.querySelectorAll("[data-s]").forEach(b => {
@@ -499,21 +463,13 @@ async function quiz() {
     let r;
 
     try {
-      r = await goi({
-        action: "nop",
-        luot: luot,
-        tl: tl
-      });
+      r = await goi({ action: "nop", luot: luot, tl: tl });
     } catch (e) {
       dangNop = false;
 
       box.innerHTML = `
-        <p class="center">
-          Chưa gửi được bài. Hãy kiểm tra mạng và thử lại.
-        </p>
-        <div class="center">
-          <button class="btn" id="gl">Gửi lại 🔁</button>
-        </div>
+        <p class="center">Chưa gửi được bài. Hãy kiểm tra mạng và thử lại.</p>
+        <div class="center"><button class="btn" id="gl">Gửi lại 🔁</button></div>
       `;
 
       $("#gl").onclick = finish;
@@ -523,33 +479,26 @@ async function quiz() {
     if (!r.ok) {
       box.innerHTML = `
         <p class="center err">${esc(r.loi || "Có lỗi khi chấm bài.")}</p>
-        <div class="center">
-          <a class="btn" href="${esc(veDanhSach())}">Về danh sách</a>
-        </div>
+        <div class="center"><a class="btn" href="${esc(veDanhSach())}">Về danh sách</a></div>
       `;
       return;
     }
 
     const hoi = {};
-    de.cauhoi.forEach(q => {
-      hoi[q.id] = q.hoi;
-    });
+    de.cauhoi.forEach(q => { hoi[q.id] = q.hoi; });
 
     const bai = Object.fromEntries(tl.map(t => [t.id, t.chon]));
-
     const chitiet = Array.isArray(r.chitiet) ? r.chitiet : [];
 
     const tb = chitiet.length
-      ? (chitiet.reduce((s, x) => s + Number(x.ms || 0), 0) /
-         chitiet.length / 1000).toFixed(1)
+      ? (chitiet.reduce((s, x) => s + Number(x.ms || 0), 0) / chitiet.length / 1000).toFixed(1)
       : "0.0";
+
+    const nv = r.diem === r.tong ? "tiger" : r.diem >= r.tong * 0.7 ? "girl" : "boy";
 
     box.innerHTML = `
       <div class="center">
-        <div style="font-size:3rem">
-          ${r.diem === r.tong ? "🏆" :
-            r.diem >= r.tong * 0.7 ? "🌸" : "🌱"}
-        </div>
+        <div class="kq-mascot" style="width:96px;height:96px">${chibi(nv)}</div>
 
         <p class="score">${r.diem}/${r.tong}</p>
         <p>Thời gian trung bình: ${tb} giây/câu</p>
@@ -567,9 +516,7 @@ async function quiz() {
 
           ${x.dung ? "✅" : "❌"}
 
-          ${!x.dung && x.dapan !== undefined
-            ? " Đáp án: " + esc(x.dapan)
-            : ""}
+          ${!x.dung && x.dapan !== undefined ? " Đáp án: " + esc(x.dapan) : ""}
 
           · ${(Number(x.ms || 0) / 1000).toFixed(1)} giây
         </div>
@@ -577,9 +524,7 @@ async function quiz() {
 
       <div class="center">
         <button class="btn" id="again">Làm lại 🔄</button>
-        <a class="btn" href="${esc(veDanhSach())}">
-          Về danh sách
-        </a>
+        <a class="btn" href="${esc(veDanhSach())}">Về danh sách</a>
       </div>
     `;
 
@@ -588,6 +533,8 @@ async function quiz() {
 }
 
 /* KHỞI ĐỘNG */
+document.body.insertAdjacentHTML("afterbegin", SPRITE);
+
 if (page === "capdo") {
   capdo();
 } else if (page === "baihoc") {
