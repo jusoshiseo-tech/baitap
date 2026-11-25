@@ -651,3 +651,19 @@ h2, h3 {
     scroll-behavior: auto !important;
   }
 }
+
+/* GIAO DIỆN HỒNG SỮA – overrides */
+:root{--pink-bg:#fce0eb;--pink-dot:#fff0f6;--cream:#fffafb;--ink:#542c35;--sub:#805a67;--outline:#e6b7c8;--brand:#ed79a5;--mint:#d9f1e6;--sky:#dfeefa;--peach:#fff0d5}
+body{background-image:radial-gradient(#fff5f9 18%,transparent 20%);background-size:24px 24px}
+.top,main{max-width:760px}.top a{border:1px solid #edb7cd;color:var(--ink)}
+main{border:1px solid #efc5d4;border-radius:30px;box-shadow:0 8px 30px #b65d7b18;padding:24px 22px 48px}
+body[data-page=home] main{padding:0 0 22px;overflow:hidden}.home-hero{background:#fce0eb}.cd-banner{display:block;width:100%;height:auto;border-radius:20px;margin:0 0 18px}.home-hero .cd-banner{border-radius:0;margin:0}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.cd-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;grid-column:1/-1;width:100%}.home-levels{padding:18px 20px 0}
+.cd-card{display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:8px;border-radius:24px;padding:16px 10px;text-decoration:none;color:var(--ink);text-align:center;border:1px solid #ffffffaa;box-shadow:0 4px 0 #b97a921a;min-width:0;transition:transform .15s}
+.cd-card:hover{transform:translateY(-3px)}.cd-card:active{transform:translateY(2px)}.cd-1{background:#fadce8}.cd-2{background:#d9f1e6}.cd-3{background:#eae0fa}.cd-4{background:#fff0d5}
+.cd-card>span:not(.cd-ic){display:flex;flex-direction:column;align-items:center;gap:4px;order:-1}.cd-t{font-size:clamp(1rem,3vw,1.4rem);font-weight:800;background:#fffafbe8;padding:5px 14px;border-radius:999px;display:inline-block}.cd-d{display:none}.cd-n{font-size:.78rem;font-style:normal;color:var(--sub)}
+.cd-ic{display:block;width:100%;max-width:200px;aspect-ratio:1.45;overflow:hidden;border-radius:16px}.cd-ic img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}.home-foot{text-align:center;color:var(--sub);margin:18px 8px 0;font-size:.85rem}
+.lesson.bl-card{display:grid;grid-template-columns:84px minmax(0,1fr);gap:14px;align-items:center;border:1.5px solid var(--edge);background:var(--tone);box-shadow:0 4px 0 #a7798d18;padding:15px;border-radius:24px}.tone-0{--tone:#fadce8;--edge:#e8a6bf}.tone-1{--tone:#d9f1e6;--edge:#9bd1b9}.tone-2{--tone:#eae0fa;--edge:#cbb3e6}.tone-3{--tone:#fff0d5;--edge:#eac88d}.tone-4{--tone:#dfeefa;--edge:#a8cce7}.bl-ic img{width:100%;display:block;border-radius:16px;mix-blend-mode:multiply}.lesson h3{margin:0 0 9px;font-size:1.08rem}.chips{gap:7px}.chip{border:1px solid #fff;background:#fffafbe8;box-shadow:0 2px 0 #b47a932b;border-radius:999px;padding:6px 10px;font-size:.84rem}.chip.off{background:#ffffff55;color:#82717a;border:1px dashed #b9a9b2;box-shadow:none}.chip:not(.off):hover{background:#fff;transform:translateY(-2px)}
+.btn{border:1px solid #e56b9b;background:#e96b9d;box-shadow:0 4px 0 #c95080}.btn:hover:not(:disabled){box-shadow:0 5px 0 #c95080}.btn:active:not(:disabled){box-shadow:0 1px 0 #c95080}.word{background:#fce4ef;border:1px solid #efbed1;box-shadow:none}.opt,.tile2,.in,.f input,.tray,.note,.rev,.bar,#tm,#music-toggle{border-width:1px;box-shadow:none}.opt{box-shadow:0 3px 0 #e9c6d5}.opt:active{box-shadow:none}.tray{background:#fce8f0}.tile2.on{background:#d9f1e6}.note{background:#d9f1e6}.kq-mascot{margin:auto}.kq-mascot img{width:100%;height:100%;object-fit:contain;border-radius:18px}.card{border-width:1px;box-shadow:none}
+@media(max-width:560px){main{padding:16px 12px 54px}.home-levels{padding:12px;gap:10px}.cd-list{gap:10px}.cd-card{padding:12px 6px;border-radius:18px}.cd-t{padding:4px 8px}.lesson.bl-card{grid-template-columns:52px minmax(0,1fr);gap:9px;padding:11px}.lesson h3{font-size:1rem}.chip{font-size:.78rem;padding:5px 8px}.cd-banner{border-radius:15px}}
