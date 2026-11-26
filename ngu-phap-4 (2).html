@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ngữ pháp tiếng Hàn 4 – Trắc nghiệm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#fffaf3; --pink:#ffd9e2; --pink-d:#f08fa8; --blue:#dff0fb; --blue-d:#6fb3dc;
+    --ink:#3b3340; --muted:#8a7f90; --ok:#3fae7a; --ok-bg:#e4f6ec; --bad:#e2566f; --bad-bg:#fde8ec;
+    --line:#f1e3e6;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--cream);color:var(--ink);
+    font-family:"Be Vietnam Pro","Noto Sans KR",system-ui,sans-serif;line-height:1.6}
+  .ko{font-family:"Noto Sans KR","Be Vietnam Pro",sans-serif}
+  .wrap{max-width:720px;margin:0 auto;padding:0 16px 80px}
+  header{background:linear-gradient(135deg,var(--pink),var(--blue));padding:28px 16px 24px;text-align:center;
+    border-radius:0 0 28px 28px;margin-bottom:18px}
+  header h1{margin:0 0 4px;font-size:1.45rem}
+  header p{margin:0;color:var(--muted);font-size:.95rem}
+  .bar{position:sticky;top:0;z-index:5;background:var(--cream);padding:10px 0 8px}
+  .bar-top{display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted);margin-bottom:6px}
+  .track{height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+  .fill{height:100%;width:0;background:linear-gradient(90deg,var(--pink-d),var(--blue-d));border-radius:99px;transition:width .25s}
+  .intro{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px}
+  .intro label{display:block;font-weight:600;margin-bottom:6px}
+  .intro input{width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:12px;font:inherit;background:var(--cream)}
+  .intro input:focus{outline:2px solid var(--blue-d);border-color:var(--blue-d)}
+  .intro small{display:block;color:var(--muted);margin-top:6px}
+  .card{background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:18px 16px;margin-bottom:14px}
+  .card.right{border-color:var(--ok);background:#fbfffd}
+  .card.wrong{border-color:var(--bad);background:#fffbfc}
+  .qhead{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .qnum{font-weight:700;color:var(--pink-d)}
+  .badge{margin-left:auto;font-size:.82rem;font-weight:600;padding:3px 11px;border-radius:99px}
+  .badge.ok{background:var(--ok-bg);color:var(--ok)}
+  .badge.no{background:var(--bad-bg);color:var(--bad)}
+  .stem{font-size:1.12rem;line-height:1.8;margin:0 0 12px;white-space:pre-line}
+  .blank{display:inline-block;min-width:3.2em;border-bottom:2px solid var(--ink);margin:0 4px;vertical-align:-2px}
+  .opts{display:grid;gap:8px}
+  .opt{display:flex;gap:10px;align-items:center;padding:11px 14px;border:1.5px solid var(--line);border-radius:14px;
+    background:var(--cream);cursor:pointer;font-size:1.02rem;transition:background .15s,border-color .15s}
+  .opt:hover{border-color:var(--blue-d)}
+  .opt input{position:absolute;opacity:0;pointer-events:none}
+  .opt .l{flex:0 0 26px;height:26px;border-radius:50%;background:#fff;border:1.5px solid var(--line);
+    display:grid;place-items:center;font-size:.8rem;font-weight:700;color:var(--muted)}
+  .opt.sel{background:var(--blue);border-color:var(--blue-d)}
+  .opt.sel .l{background:var(--blue-d);border-color:var(--blue-d);color:#fff}
+  .opt:has(input:focus-visible){outline:2px solid var(--blue-d);outline-offset:2px}
+  .locked .opt{cursor:default}
+  .locked .opt:hover{border-color:var(--line)}
+  .locked .opt.sel:hover{border-color:var(--blue-d)}
+  .card.right .opt.sel{background:var(--ok-bg);border-color:var(--ok)}
+  .card.right .opt.sel .l{background:var(--ok);border-color:var(--ok)}
+  .card.wrong .opt.sel{background:var(--bad-bg);border-color:var(--bad)}
+  .card.wrong .opt.sel .l{background:var(--bad);border-color:var(--bad)}
+  .actions{display:flex;gap:10px;justify-content:center;margin-top:8px}
+  button{font:inherit;font-weight:600;border:0;border-radius:14px;padding:13px 26px;cursor:pointer}
+  .btn-main{background:var(--pink-d);color:#fff}
+  .btn-main:hover{background:#e87a98}
+  .btn-sub{background:var(--blue);color:#2f6f94}
+  button:focus-visible{outline:3px solid var(--blue-d);outline-offset:2px}
+  .result{background:linear-gradient(135deg,var(--pink),var(--blue));border-radius:24px;padding:22px 18px;text-align:center;margin-bottom:16px}
+  .result .score{font-size:2.6rem;font-weight:700;line-height:1.1}
+  .result .score small{font-size:1.1rem;font-weight:500}
+  .result p{margin:6px 0 0}
+  .hidden{display:none}
+  .warn{color:var(--bad);text-align:center;font-weight:500;min-height:1.4em;margin:6px 0}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Ngữ pháp tiếng Hàn 4</h1>
+  <p>Trắc nghiệm 25 câu ngẫu nhiên · chọn đáp án đúng nhất</p>
+</header>
+
+<main class="wrap">
+  <div id="result" class="result hidden" role="status" aria-live="polite"></div>
+
+  <div class="bar">
+    <div class="bar-top"><span id="done">Đã làm 0/25</span><span>Mỗi câu 0,4 điểm</span></div>
+    <div class="track"><div class="fill" id="fill"></div></div>
+  </div>
+
+  <div class="intro" id="intro">
+    <label for="name">Họ và tên</label>
+    <input id="name" type="text" placeholder="Nhập tên của bạn" autocomplete="name">
+    <small>Sau khi nộp bài, bạn sẽ biết câu nào đúng, câu nào sai và tổng điểm.</small>
+  </div>
+
+  <div id="quiz"></div>
+
+  <div class="warn" id="warn"></div>
+  <div class="actions">
+    <button class="btn-main" id="submit">Nộp bài</button>
+    <button class="btn-sub hidden" id="retry">Làm lại</button>
+  </div>
+</main>
+
+<script>
+const BANK = [
+ {
+  "id": 1,
+  "q": "방이 너무 어지럽네요. 손님이 오시니까 방을 _____ 치워 주세요.",
+  "o": [
+   "깨끗하고",
+   "깨끗하게",
+   "깨끗하면",
+   "깨끗한지"
+  ],
+  "h": 3566168707891768
+ },
+ {
+  "id": 2,
+  "q": "이 전통 문화 축제에 _______ 올해로 벌써 10년이 되었습니다.",
+  "o": [
+   "참가한지",
+   "참가하려면",
+   "참가해야",
+   "참가해도"
+  ],
+  "h": 1173883614944349
+ },
+ {
+  "id": 3,
+  "q": "한국어 능력 시험에서 좋은 성적을 ______ 매일 꾸준히 어휘를 연습하고 기출문제를 풀어봐야 합니다.",
+  "o": [
+   "받자마자",
+   "받게",
+   "받은지",
+   "받으려면"
+  ],
+  "h": 188027175576587
+ },
+ {
+  "id": 4,
+  "q": "팀장님께서 지난 주말 동안 등산을 다녀오시더니 오늘 피부가 아주 _________",
+  "o": [
+   "건강한지 알아요?",
+   "건강해 보이세요.",
+   "건강하냐고 해요.",
+   "건강해야겠어요."
+  ],
+  "h": 5591736753427632
+ },
+ {
+  "id": 5,
+  "q": "가: 혹시 다음 신제품 발표회가 언제 _________\n나: 네, 다음 주 화요일 오전 10시로 일정이 확정되었어요.",
+  "o": [
+   "개최된가요?",
+   "개최게 돼요.",
+   "개최하냐고 해요.",
+   "개최하는지 아세요?"
+  ],
+  "h": 399399369952635
+ },
+ {
+  "id": 6,
+  "q": "처음에는 한국어로 길을 묻기가 두려웠지만, 연습을 많이 한 덕분에 이제는 혼자서도 잘 ______.",
+  "o": [
+   "찾아가는 중이에요",
+   "찾아갈 수 있게 되었어요",
+   "찾아갈 수 있잖아요",
+   "찾아갈 수 있겠어요"
+  ],
+  "h": 6628502988165363
+ },
+ {
+  "id": 7,
+  "q": "가: 지금 수민 씨와 통화할 수 있어요?\n나: 미안해요. 지금 중요한 보고서를 _________. 나중에 다시 전화할게요.",
+  "o": [
+   "작성해 봤어요",
+   "작성하잖아요",
+   "작성하는 중이에요",
+   "작성하려고 해요"
+  ],
+  "h": 5590083765757557
+ },
+ {
+  "id": 8,
+  "q": "이번 주말에 열리는 문화 축제에 가려면 지하철역 몇 번 출구로 _________?",
+  "o": [
+   "나가야 해요",
+   "나가고 싶어요",
+   "나갔어요",
+   "나가고 있어요"
+  ],
+  "h": 1036995680651149
+ },
+ {
+  "id": 9,
+  "q": "이 식당은 음식 맛도 깔끔하고 서비스도 정말 친절해요. 게다가 위치도 ______.",
+  "o": [
+   "가깝는 중이에요",
+   "가깝잖아요",
+   "가깝나요",
+   "가까울 거예요"
+  ],
+  "h": 4235345029923454
+ },
+ {
+  "id": 10,
+  "q": "아무리 잠이 _________ 매일 아침 가벼운 스트레칭으로 하루를 시작합니다.",
+  "o": [
+   "부족하냐고 해서",
+   "부족한지",
+   "부족해도",
+   "부족하면"
+  ],
+  "h": 4671704041902415
+ },
+ {
+  "id": 11,
+  "q": "신분증을 가지고 오셨지요? 신분증이 _________ 카드를 만들 수 있어요.",
+  "o": [
+   "있자마자",
+   "있어야",
+   "있거든요.",
+   "있나 봐요."
+  ],
+  "h": 8082686196546337
+ },
+ {
+  "id": 12,
+  "q": "가: 이번 시험에서 민수 씨가 1등을 했다고 들었어요.\n나: 네, 지난달부터 쉬지 않고 공부를 열심히 __________.",
+  "o": [
+   "했거든요",
+   "하려고요",
+   "하네요",
+   "하니까요"
+  ],
+  "h": 1662001444401951
+ },
+ {
+  "id": 13,
+  "q": "밖에 사람이 우산을 쓰고 걸어가는 걸 보니까 지금 비가 _________.",
+  "o": [
+   "왔겠어요",
+   "올 거예요",
+   "오나 봐요",
+   "오거든요"
+  ],
+  "h": 1069478695874171
+ },
+ {
+  "id": 14,
+  "q": "회사 업무가 _________ 친구들과 약속 장소로 뛰어갔어요.",
+  "o": [
+   "끝날때 마다",
+   "끝나기 전에",
+   "끝나는 동안",
+   "끝나자마자"
+  ],
+  "h": 2408251515381217
+ },
+ {
+  "id": 15,
+  "q": "이번 주에 중요한 면접이 있으니까 오늘 저녁에는 집에서 한국어 자기소개를 열심히 _________.",
+  "o": [
+   "공부해야겠어요",
+   "공부할 수 있어요",
+   "공부하고 싶어요",
+   "공부한 적이 있어요"
+  ],
+  "h": 6894602632671873
+ },
+ {
+  "id": 16,
+  "q": "요즘 밤에 잠을 잘 못 _________ 아침마다 피곤하고 집중이 잘 안 돼요.",
+  "o": [
+   "자면",
+   "자기 전에",
+   "자서 그런지",
+   "자고 싶어서"
+  ],
+  "h": 401076926976806
+ },
+ {
+  "id": 17,
+  "q": "날씨 예보를 보니까 내일 오후부터 전국에 많은 비가 _________.",
+  "o": [
+   "내리냐고 해요",
+   "내린다고 해요",
+   "내리라고 해요",
+   "내리자고 해요"
+  ],
+  "h": 6868845510071858
+ },
+ {
+  "id": 18,
+  "q": "선생님께서 학생들에게 오늘 숙제를 다 ________.",
+  "o": [
+   "하냐고 물어보셨어요",
+   "한다고 물어보셨어요",
+   "하자고 물어보셨어요",
+   "하라고 물어보셨어요"
+  ],
+  "h": 5905622246172082
+ },
+ {
+  "id": 19,
+  "q": "안내원 아저씨가 도서관에서는 조용히 _________.",
+  "o": [
+   "하냐고 말씀하셨어요",
+   "한다고 말씀하셨어요",
+   "하자고 말씀하셨어요",
+   "하라고 말씀하셨어요"
+  ],
+  "h": 1206649644337847
+ },
+ {
+  "id": 20,
+  "q": "수업이 끝나고 나서 친구가 함께 카페에 _________.",
+  "o": [
+   "간다고 제안했어요",
+   "가냐고 제안했어요",
+   "가자고 제안했어요",
+   "가라고 제안했어요"
+  ],
+  "h": 7081998257081032
+ },
+ {
+  "id": 21,
+  "q": "동료에게 오늘 저녁에 같이 회식을 하자고 했는데 동료가 약속이 있어서 못 __________.",
+  "o": [
+   "가재요",
+   "가래요",
+   "가내요",
+   "간대요"
+  ],
+  "h": 3921405752095374
+ },
+ {
+  "id": 22,
+  "q": "외출하기 전에 방 안이 더워서 창문을 _________.",
+  "o": [
+   "열어 놓았어요",
+   "열어 보았어요",
+   "열어 주었어요",
+   "열어 버렸어요"
+  ],
+  "h": 1448224873194067
+ },
+ {
+  "id": 23,
+  "q": "주말에 집에서 혼자 영화를 5편_________ 보았더니 눈이 너무 피곤해요.",
+  "o": [
+   "밖에",
+   "이나",
+   "부터",
+   "마다"
+  ],
+  "h": 318822782381482
+ },
+ {
+  "id": 24,
+  "q": "봄바람이 살랑살랑 불어서 방 창문이 활짝 __________.",
+  "o": [
+   "열어 버렸어요",
+   "열어 놓았어요",
+   "열고 있어요",
+   "열려 있어요"
+  ],
+  "h": 2885884901099972
+ },
+ {
+  "id": 25,
+  "q": "오늘은 휴일이라서 회사에 사람이 _________ 없어요.",
+  "o": [
+   "아무도",
+   "아무 것도",
+   "아무리",
+   "아무 때도"
+  ],
+  "h": 5954471043953279
+ },
+ {
+  "id": 26,
+  "q": "어제 백화점에 갔는데 유명한 겨울 패딩을 아주 저렴하게 _________.",
+  "o": [
+   "팔 거예요",
+   "파니까요",
+   "팔겠어요",
+   "팔더라고요"
+  ],
+  "h": 6759448381132567
+ },
+ {
+  "id": 27,
+  "q": "어제 밤늦게까지 시험 공부를 _________ 오늘 아침에 눈을 뜨기가 너무 힘들었어요.",
+  "o": [
+   "하자마자",
+   "해야",
+   "해 가지고",
+   "하기는 하지만"
+  ],
+  "h": 309359177590700
+ },
+ {
+  "id": 28,
+  "q": "이 스마트폰 카메라는 화질이 _________ 가격이 너무 비싸서 사기 힘들어요.",
+  "o": [
+   "좋기는 한데",
+   "좋으니까",
+   "좋기 전에",
+   "좋아야"
+  ],
+  "h": 2494983881119127
+ },
+ {
+  "id": 29,
+  "q": "만약에 내가 세계에서 가장 유명한 부자가 _________ 어려운 사람들을 위해 기부하고 싶어요.",
+  "o": [
+   "되더라도",
+   "되니까",
+   "되지만",
+   "된다면"
+  ],
+  "h": 1666409158323625
+ },
+ {
+  "id": 30,
+  "q": "이 사진은 제가 고등학생 때 친구들과 자주 축구를 _________ 운동장에서 찍은 거예요.",
+  "o": [
+   "한 후에",
+   "하던",
+   "하고 싶어서",
+   "할 거라서"
+  ],
+  "h": 204295438568119
+ },
+ {
+  "id": 31,
+  "q": "가: 수미 씨, 다음 달에 한국으로 유학을 _________?\n나: 네, 다음 달 초에 출국할 예정이에요.",
+  "o": [
+   "가고 싶어요",
+   "갈 수 있어요",
+   "가니까요",
+   "간다면서요"
+  ],
+  "h": 1140453592480118
+ },
+ {
+  "id": 32,
+  "q": "오늘은 날씨가 너무 좋아서 지하철을 _________ 자전거를 타고 출근했어요.",
+  "o": [
+   "타는 동안",
+   "타기 전에",
+   "타는 대신에",
+   "타기 때문에"
+  ],
+  "h": 3970452198216822
+ },
+ {
+  "id": 33,
+  "q": "갑자기 강풍이 불어서 길가에 세워져 있던 표지판이 __________.",
+  "o": [
+   "뽑혔어요",
+   "뽑았어요",
+   "뽑으려고 해요",
+   "뽑고 있어요"
+  ],
+  "h": 8350441554623293
+ },
+ {
+  "id": 34,
+  "q": "이 책은 내용이 아주 감동적이고 재미있어서 여러분도 꼭 _________.",
+  "o": [
+   "읽을 수 있는 책이에요",
+   "읽어 볼 만한 책이에요",
+   "읽어야 하는 책이에요",
+   "읽지 않는 책이에요"
+  ],
+  "h": 4528914987209781
+ },
+ {
+  "id": 35,
+  "q": "제가 먼저 도착해서 티켓을 _________ 조금만 천천히 와 주세요.",
+  "o": [
+   "예매하면",
+   "예매해야",
+   "예매할 테니까",
+   "예매하자마자"
+  ],
+  "h": 6509189393043461
+ },
+ {
+  "id": 36,
+  "q": "갑자기 버스가 _________ 약속 장소에 20분이나 늦고 말았어요.",
+  "o": [
+   "멈추는 바람에",
+   "멈추자마자",
+   "멈추는 동안",
+   "멈추기 전에"
+  ],
+  "h": 2698461217762340
+ },
+ {
+  "id": 37,
+  "q": "이번에 산 스마트폰은 _________ 성능이 좋지 않아요.",
+  "o": [
+   "가격이라서",
+   "가격때문에",
+   "가격이기 때문에",
+   "가격에 비해서"
+  ],
+  "h": 5150499864501281
+ },
+ {
+  "id": 38,
+  "q": "처음에는 한국어 발음이 많이 어색했지만 꾸준히 연습하니까 점점 자연스럽게 _________.",
+  "o": [
+   "말한 적이 있어요",
+   "말하고 있어요",
+   "말하게 됐어요",
+   "말할 수 없어요"
+  ],
+  "h": 7007718415558543
+ },
+ {
+  "id": 39,
+  "q": "지금 회의실에 바이어가 오셔서 부장님과 __________.",
+  "o": [
+   "상담했습니다",
+   "상담 중입니다",
+   "상담할 겁니다",
+   "상담한 적이 있습니다"
+  ],
+  "h": 2812610501307641
+ },
+ {
+  "id": 40,
+  "q": "실례지만, 이 도서관 책은 대여 기간이 최대 며칠까지 _________?",
+  "o": [
+   "가능하나요",
+   "가능한가요",
+   "가능할 거예요",
+   "가능했어요"
+  ],
+  "h": 8520961207861275
+ },
+ {
+  "id": 41,
+  "q": "가: 왜 이렇게 얇은 옷을 입고 나왔어요? 밖이 엄청 추운데요.\n나: 오늘 날씨가 흐리기는 하지만 낮에는 _________.",
+  "o": [
+   "따뜻하겠어요",
+   "따뜻해야 해요",
+   "따뜻했어요",
+   "따뜻하잖아요"
+  ],
+  "h": 163630532706950
+ },
+ {
+  "id": 42,
+  "q": "아무리 여유가 _________ 건강을 위해 식사는 제때 해야 합니다.",
+  "o": [
+   "없어도",
+   "없으면",
+   "없으니까",
+   "없기 때문에"
+  ],
+  "h": 1540642308584585
+ },
+ {
+  "id": 43,
+  "q": "한국어 회화 실력을 _________ 매일 꾸준히 원어민 친구와 대화해야 합니다.",
+  "o": [
+   "늘린 후에",
+   "늘려야",
+   "늘리려면",
+   "늘리기 전에"
+  ],
+  "h": 5271883024883754
+ },
+ {
+  "id": 44,
+  "q": "가: 왜 이렇게 집안 창문을 모두 활짝 열어 두었어요?\n나: 집안 공기를 환기시키고 싶어서요. 날씨가 좋아서 방안이 조금 _________.",
+  "o": [
+   "답답했어요",
+   "답답해야 해요",
+   "답답할 거예요",
+   "답답하거든요"
+  ],
+  "h": 4926943410094985
+ },
+ {
+  "id": 45,
+  "q": "하늘이 어두워지고 찬바람이 부는 걸 보니까 금방이라도 비가 __________.",
+  "o": [
+   "오나 봐요",
+   "왔으면 좋겠어요",
+   "오고 싶어요",
+   "오기 전에"
+  ],
+  "h": 3175344256399776
+ },
+ {
+  "id": 46,
+  "q": "어제는 중요한 시험이 끝나서 너무 홀가분했어요. 시험이 _________ 친구들과 만나서 맛있는 저녁을 먹으러 갔어요.",
+  "o": [
+   "끝나려면",
+   "끝나는 중에",
+   "끝나자마자",
+   "끝나기 전에"
+  ],
+  "h": 8131740814817920
+ },
+ {
+  "id": 47,
+  "q": "선생님께서 교실 안에서는 항상 한국어만 _________.",
+  "o": [
+   "사용하자고 하셨어요",
+   "사용하라고 하셨어요",
+   "사용하냐고 하셨어요",
+   "사용한다고 하셨어요"
+  ],
+  "h": 4441912237411638
+ },
+ {
+  "id": 48,
+  "q": "어제 새로 생긴 백화점에 갔었는데 사람이 정말 많고 할인 행사도 _________.",
+  "o": [
+   "했거든요",
+   "하고 싶어요",
+   "하기로 했어요",
+   "하더라고요"
+  ],
+  "h": 286009802428641
+ },
+ {
+  "id": 49,
+  "q": "오늘은 중요한 회의가 일찍 _________ 시간이 남아서 근처 카페에서 커피를 마셨다.",
+  "o": [
+   "끝나 가지고",
+   "끝나려면",
+   "끝나지만",
+   "끝나면서"
+  ],
+  "h": 1245802961686012
+ },
+ {
+  "id": 50,
+  "q": "만약 내가 시간에 얽매이지 않고 _________ 세계 일주 여행을 떠나고 싶다.",
+  "o": [
+   "자유로워야 해서",
+   "자유롭기 때문에",
+   "자유로울 수 있다면",
+   "자유롭다고 해서"
+  ],
+  "h": 6789903757659553
+ }
+];
+const SALT = "ngp4-2026";
+const N = 25;            // số câu mỗi lượt làm
+const POINT = 10 / N;    // 0,4 điểm / câu
+
+// Bốc ngẫu nhiên N câu từ ngân hàng (Fisher–Yates) và giữ thứ tự ngẫu nhiên đó
+function pick(){
+  const a = BANK.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a.slice(0, N);
+}
+let QUESTIONS = pick();
+const LET = ['A','B','C','D'];
+
+// Chỉ lưu mã băm của đáp án, không lưu đáp án thật trong file.
+function cyrb53(str, seed = 0) {
+  let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
+  for (let i = 0, ch; i < str.length; i++) {
+    ch = str.charCodeAt(i);
+    h1 = Math.imul(h1 ^ ch, 2654435761);
+    h2 = Math.imul(h2 ^ ch, 1597334677);
+  }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507);
+  h1 ^= Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507);
+  h2 ^= Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return 4294967296 * (2097151 & h2) + (h1 >>> 0);
+}
+const isRight = (q, letter) => cyrb53(q.id + '|' + q.o[LET.indexOf(letter)] + '|' + SALT) === q.h;
+
+const $ = id => document.getElementById(id);
+const quiz = $('quiz');
+const picked = {};
+let submitted = false;
+
+function esc(s){return s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+function stemHtml(s){return esc(s).replace(/_{2,}/g,'<span class="blank"></span>')}
+
+function render(){
+  quiz.innerHTML = QUESTIONS.map((q,i)=>`
+    <section class="card" id="q${q.id}">
+      <div class="qhead"><span class="qnum">Câu ${i+1}</span><span class="badge hidden"></span></div>
+      <p class="stem ko">${stemHtml(q.q)}</p>
+      <div class="opts" role="radiogroup" aria-label="Câu ${i+1}">
+        ${q.o.map((t,k)=>`
+          <label class="opt ko" data-q="${q.id}" data-l="${LET[k]}">
+            <input type="radio" name="q${q.id}" value="${LET[k]}">
+            <span class="l">${LET[k]}</span><span>${esc(t)}</span>
+          </label>`).join('')}
+      </div>
+    </section>`).join('');
+}
+
+quiz.addEventListener('change', e=>{
+  if(submitted || e.target.type!=='radio') return;
+  const id = +e.target.name.slice(1);
+  picked[id] = e.target.value;
+  document.querySelectorAll('#q'+id+' .opt').forEach(o=>o.classList.toggle('sel', o.dataset.l===picked[id]));
+  updateProgress();
+  $('warn').textContent='';
+});
+
+function updateProgress(){
+  const n = Object.keys(picked).length;
+  $('done').textContent = 'Đã làm '+n+'/'+QUESTIONS.length;
+  $('fill').style.width = (n/QUESTIONS.length*100)+'%';
+}
+
+$('submit').addEventListener('click', ()=>{
+  const missing = QUESTIONS.filter(q=>!picked[q.id]);
+  if(missing.length){
+    const first = missing[0];
+    $('warn').textContent = 'Bạn còn '+missing.length+' câu chưa chọn (câu '+(QUESTIONS.indexOf(first)+1)+' là câu đầu tiên).';
+    document.getElementById('q'+first.id).scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+  grade();
+});
+
+function grade(){
+  submitted = true;
+  let correct = 0;
+  QUESTIONS.forEach(q=>{
+    const ok = isRight(q, picked[q.id]);
+    if(ok) correct++;
+    const card = $('q'+q.id);
+    card.classList.add(ok?'right':'wrong','locked');
+    const b = card.querySelector('.badge');
+    b.classList.remove('hidden');
+    b.classList.add(ok?'ok':'no');
+    b.textContent = ok ? '✓ Đúng' : '✗ Sai';
+    card.querySelectorAll('input').forEach(i=>i.disabled=true);
+  });
+  const score = Math.round(correct*POINT*10)/10;
+  const name = $('name').value.trim();
+  const msg = score>=8 ? 'Rất tốt!' : score>=5 ? 'Khá ổn, ôn lại các câu sai nhé.' : 'Cố gắng ôn thêm rồi làm lại nhé.';
+  const r = $('result');
+  r.innerHTML = (name?'<div>'+esc(name)+'</div>':'') +
+    '<div class="score">'+String(score).replace('.',',')+'<small> / 10 điểm</small></div>'+
+    '<p>Đúng '+correct+'/'+QUESTIONS.length+' câu · '+msg+'</p>';
+  r.classList.remove('hidden');
+  $('submit').classList.add('hidden');
+  $('retry').classList.remove('hidden');
+  $('intro').classList.add('hidden');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+$('retry').addEventListener('click', ()=>{
+  submitted = false;
+  Object.keys(picked).forEach(k=>delete picked[k]);
+  $('result').classList.add('hidden');
+  $('retry').classList.add('hidden');
+  $('submit').classList.remove('hidden');
+  $('intro').classList.remove('hidden');
+  QUESTIONS = pick();
+  render(); updateProgress();
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+render();
+</script>
+</body>
+</html>
