@@ -780,3 +780,15 @@ body[data-page=home] main{
   .lv-art{height:104px;padding-bottom:6px}
   .lv-art img{height:92px}
 }
+
+/* Tiêu đề trang chủ: một dòng ngang đặt trên banner (không còn bong bóng thoại) */
+.hero2{position:relative;container-type:inline-size}
+.hero-title{
+  position:absolute;left:50%;top:30%;transform:translate(-50%,-50%);
+  margin:0;white-space:nowrap;text-align:center;
+  font-family:"Baloo 2","Nunito",sans-serif;font-weight:800;line-height:1;
+  letter-spacing:.02em;color:#5a2d2d;
+  font-size:clamp(1.05rem,4.4vw,2.3rem);
+  text-shadow:0 2px 0 #fff,0 0 3px #fff,0 0 12px rgba(255,255,255,.95),0 0 22px rgba(255,255,255,.8);
+}
+@supports (font-size:1cqw){.hero-title{font-size:5.2cqw}}
